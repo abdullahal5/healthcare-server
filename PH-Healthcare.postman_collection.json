@@ -1,0 +1,1639 @@
+{
+	"info": {
+		"_postman_id": "478c3d8d-aa41-414c-b58a-3b6d47772f87",
+		"name": "PH-Healthcare",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31708605"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"super@admin.com\",\r\n    \"password\": \"superadmin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh-token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/auth/refresh-token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change-password",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluMUBob3RtYWlsLmNvbSIsInJvbGUiOiJQQVRJRU5UIiwiaWF0IjoxNzExMzgxNjMwLCJleHAiOjE3MTE0NjgwMzB9.3KchOYk0yZAY-hTzorrWB8ONm_PmhqDft5YIjKxG3Y0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oldPassword\": \"newpassword\",\r\n    \"newPassword\": \"newpassword1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/auth/change-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgot-password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"usadadu09@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/auth/forgot-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset-password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMyZGY1N2Y3LTIzMTMtNGViMS05NGE1LWQ2M2ViMDU3M2Q0YyIsImVtYWlsIjoidXNhZGFkdTA5QGdtYWlsLmNvbSIsImlhdCI6MTcxMTM5OTE1NSwiZXhwIjoxNzExMzk5NDU1fQ.lMfB-MS9lGv_X_gbB20Ke2rniLME_5uRt-HZ0XdCADg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \r\n    \"id\": \"32df57f7-2313-4eb1-94a5-d63eb0573d4c\",\r\n    \"password\": \"newpassword\"\r\n \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/auth/reset-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create Admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluN0Bob3RtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcxMTQ3MTM3NCwiZXhwIjoxNzExNTU3Nzc0fQ.Uz54olEpPiTNbENaJuUIJiShBOeughjGPNG8hJx-p10",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Naimur Reza/Downloads/Screenshot 2024-03-09 at 23-00-42 RRN Project Details.png"
+								},
+								{
+									"key": "data",
+									"value": "{\n    \"password\": \"newpassword\",\n    \"admin\": {\n        \"email\": \"cloud@admin.com\",\n        \"name\": \"James Bond\",\n\"contactNumber\":\"0191928181\"\n    }\n}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/user/create-admin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"create-admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Doctor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTg4ZWYyNC1jMTM1LTRjMTUtOTRmMC1mMWQxMWEyZWVjM2YiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJlbWFpbCI6InN1cGVyQGFkbWluLmNvbSIsImlhdCI6MTcxNDkzMDc1OSwiZXhwIjoxNzE3NTIyNzU5fQ.5qfCKTuogdIEV_F3INvpMvlq05FO9Yd8iBNzC7u5vdk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/FAHIM/Pictures/Anime-Cat-Girls-Download-Free-PNG-removebg-preview 1.png"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"password\": \"securepassword123\",\n  \"doctor\": {\n    \"email\": \"doctor3453451@example.com\",\n    \"name\": \"sdfadfe\",\n    \"contactNumber\": \"+1234567890\",\n    \"city\": \"New York\",\n    \"address\": \"123 Main Street, NY\",\n    \"registrationNumber\": \"REG123456\",\n    \"experience\": 10,\n    \"gender\": \"MALE\",\n    \"apointmentFee\": 100,\n    \"qualification\": \"MBBS, MD\",\n    \"currentWorkingPlace\": \"New York General Hospital\",\n    \"designation\": \"Senior Cardiologist\",\n    \"departmentId\": \"8c7f1719-c199-4f22-ab0d-0855741fde70\"\n  }\n}\n",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/user/create-doctor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"create-doctor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Patient",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Naimur Reza/Desktop/1709896049064.jpg"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"password\": \"newpassword\",\n  \"patient\": {\n    \"name\": \"Hamid\",\n    \"email\": \"ham@example.com\",\n    \"contactNumber\": \"1234567890\",\n\"address\":\"Feni\"\n}\n}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/user/create-patient",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"create-patient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update status",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get My Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsb3VkQGFkbWluLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcxMTk2NzE1MSwiZXhwIjoxNzEyMDUzNTUxfQ.inzQ15zHJG7dScdKF3Q2p20yNg-2qyoT20bX-TBMtS8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/user/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update My Profile",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsb3VkQGFkbWluLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTcxMjEzNzMyNSwiZXhwIjoxNzEyMzk2NTI1fQ.LhhJzMDrHYTuX7LG4c4fUpMou8mnfpVmIwYR3ikITFQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Naimur Reza/Desktop/levi.jpg"
+								},
+								{
+									"key": "data",
+									"value": "{\"name\":\"Taleban\"}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/user/update-my-profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"update-my-profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Get All Admin",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/admin?sortBy=name&sortOrder=asc&page=6&limit=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"admin"
+							],
+							"query": [
+								{
+									"key": "searchTerm",
+									"value": "hot",
+									"disabled": true
+								},
+								{
+									"key": "isDeleted",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "name"
+								},
+								{
+									"key": "sortOrder",
+									"value": "asc"
+								},
+								{
+									"key": "page",
+									"value": "6"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All Admin",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v1/admin?isDeleted=&page=1&limit=1&sortBy=name&sortOrder=asc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"admin"
+									],
+									"query": [
+										{
+											"key": "searchTerm",
+											"value": "mihad",
+											"disabled": true
+										},
+										{
+											"key": "isDeleted",
+											"value": ""
+										},
+										{
+											"key": "name",
+											"value": "Mihad",
+											"disabled": true
+										},
+										{
+											"key": "contactNumber",
+											"value": "01914049327",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "1"
+										},
+										{
+											"key": "sortBy",
+											"value": "name"
+										},
+										{
+											"key": "sortOrder",
+											"value": "asc"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "341"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"155-hSUn6lCiuOksOzg1KVpOBh0wBIA\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Apr 2025 07:31:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Admin data fetched\",\n    \"meta\": {\n        \"page\": 1,\n        \"limit\": 1,\n        \"total\": 2\n    },\n    \"data\": {\n        \"result\": [\n            {\n                \"id\": \"f1e92433-e85e-404b-9b58-3605e7093bf7\",\n                \"name\": \"Fahim\",\n                \"email\": \"fahim183@gmail.com\",\n                \"profilePhoto\": null,\n                \"contactNumber\": \"01914049327\",\n                \"isDeleted\": false,\n                \"createdAt\": \"2025-04-19T15:30:20.426Z\",\n                \"updatedAt\": \"2025-04-19T15:30:20.426Z\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Single Admin",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/admin/2b3a5981-5fd9-4f86-954f-997f388c2848",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"2b3a5981-5fd9-4f86-954f-997f388c2848"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update admin",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Will\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/admin/2b3a5981-5fd9-4f86-954f-997f388c2848",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"2b3a5981-5fd9-4f86-954f-997f388c2848"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Admin",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/admin/573eadff-94a5-4649-b096-455217494eba",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"573eadff-94a5-4649-b096-455217494eba"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Soft Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/admin/573eadff-94a5-4649-b096-455217494eba",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"573eadff-94a5-4649-b096-455217494eba"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Doctor",
+			"item": [
+				{
+					"name": "Get All Doctor",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsb3VkQGFkbWluLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTcxMjU2MjIzMCwiZXhwIjoxNzEyODIxNDMwfQ.qGdTyVnDhLGmctK0DN1W6E8m23W83tm_QVshxgfvHf0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/doctor?departmentName=neurology",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"doctor"
+							],
+							"query": [
+								{
+									"key": "sortOrder",
+									"value": "asc",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "6",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "hot",
+									"disabled": true
+								},
+								{
+									"key": "isDeleted",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "departmentName",
+									"value": "neurology"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Doctor",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsb3VkQGFkbWluLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTcxMjU2MjIzMCwiZXhwIjoxNzEyODIxNDMwfQ.qGdTyVnDhLGmctK0DN1W6E8m23W83tm_QVshxgfvHf0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/admin/2b3a5981-5fd9-4f86-954f-997f388c2848",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"2b3a5981-5fd9-4f86-954f-997f388c2848"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Doctor",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsb3VkQGFkbWluLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTcxMjU2MjIzMCwiZXhwIjoxNzEyODIxNDMwfQ.qGdTyVnDhLGmctK0DN1W6E8m23W83tm_QVshxgfvHf0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"specialties\": [\r\n        {\r\n            \"specialtiesId\": \"df3e69ae-b4da-4ca8-8561-6a7886cbe43d\",\r\n            \"isDeleted\": false\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/doctor/46059fef-fbcf-4ff6-8e79-a2f29616b4c5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"doctor",
+								"46059fef-fbcf-4ff6-8e79-a2f29616b4c5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Doctor",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsb3VkQGFkbWluLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTcxMjU2MjIzMCwiZXhwIjoxNzEyODIxNDMwfQ.qGdTyVnDhLGmctK0DN1W6E8m23W83tm_QVshxgfvHf0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/doctor/573eadff-94a5-4649-b096-455217494eba",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"doctor",
+								"573eadff-94a5-4649-b096-455217494eba"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Soft Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsb3VkQGFkbWluLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTcxMjU2MjIzMCwiZXhwIjoxNzEyODIxNDMwfQ.qGdTyVnDhLGmctK0DN1W6E8m23W83tm_QVshxgfvHf0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/doctor/573eadff-94a5-4649-b096-455217494eba",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"doctor",
+								"573eadff-94a5-4649-b096-455217494eba"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Patient",
+			"item": [
+				{
+					"name": "Get All Patient",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/patient?sortBy=name",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"patient"
+							],
+							"query": [
+								{
+									"key": "searchTerm",
+									"value": "hot",
+									"disabled": true
+								},
+								{
+									"key": "isDeleted",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "name"
+								},
+								{
+									"key": "sortOrder",
+									"value": "asc",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "6",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Patient",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/patient/2b3a5981-5fd9-4f86-954f-997f388c2848",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"patient",
+								"2b3a5981-5fd9-4f86-954f-997f388c2848"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Patient",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Williamson\",\r\n    \"patientHealthData\": {\r\n        \"gender\": \"MALE\",\r\n        \"dateOfBirth\": \"2 January 2003\",\r\n        \"bloodGroup\": \"O_NEGATIVE\",\r\n        \"height\": \"200cm\",\r\n        \"weight\": \"1000cm\"\r\n    },\r\n    \"medicalReport\": {\r\n        \"reportName\": \"New Medical Report2\",\r\n        \"reportLink\": \"New Report Link2\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/patient/fd2d62c6-1784-41c6-8b67-dc6179c777e3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"patient",
+								"fd2d62c6-1784-41c6-8b67-dc6179c777e3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Patient",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/patient/c886c56a-1242-491f-8825-4b2e98e1a78e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"patient",
+								"c886c56a-1242-491f-8825-4b2e98e1a78e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Soft Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/patient/573eadff-94a5-4649-b096-455217494eba",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"patient",
+								"573eadff-94a5-4649-b096-455217494eba"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Specialties",
+			"item": [
+				{
+					"name": "Create Specialties",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "data",
+									"value": "{\n    \"title\": \"Ophthalmologist\"\n}",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/user/Desktop/Healthcare/healthcare-frontend/src/assets/svgs/Ophthalmology.svg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/specialties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"specialties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Specialties",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsb3VkQGFkbWluLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTcxMjU2MjIzMCwiZXhwIjoxNzEyODIxNDMwfQ.qGdTyVnDhLGmctK0DN1W6E8m23W83tm_QVshxgfvHf0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "data",
+									"value": "{\n    \"title\": \"Heart Special\"\n}",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Naimur Reza/Desktop/levi.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/specialties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"specialties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Specialties",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsb3VkQGFkbWluLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTcxMjU2MjIzMCwiZXhwIjoxNzEyODIxNDMwfQ.qGdTyVnDhLGmctK0DN1W6E8m23W83tm_QVshxgfvHf0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "data",
+									"value": "{\n    \"title\": \"Heart Special\"\n}",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Naimur Reza/Desktop/levi.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/specialties/id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"specialties",
+								"id"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Schedules",
+			"item": [
+				{
+					"name": "Create Schedule",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{doctorToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"startDate\": \"2024-04-18\",\r\n    \"endDate\": \"2024-04-24\",\r\n    \"startTime\": \"09:00\",\r\n    \"endTime\": \"17:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/schedule",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"schedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Schedules",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{doctorToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/schedule?startDate=2024-06-27T03:30:00.000Z&endDate=2024-06-27T04:00:00.000Z",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"schedule"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "7",
+									"disabled": true
+								},
+								{
+									"key": "startDate",
+									"value": "2024-06-27T03:30:00.000Z"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-06-27T04:00:00.000Z"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Doctor Schedules",
+			"item": [
+				{
+					"name": "Create Doctor Schedule",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{doctorToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scheduleIds\": [\r\n        \"044dcab5-a8c6-4987-aa24-c60e91c2fde3\",\r\n        \"03c68a17-70dc-486a-887a-93176ccf6261\",\r\n        \"01a3717c-cc0f-4e72-ae57-6f6b68768d6a\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/doctor-schedule",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"doctor-schedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Doctor Schedules",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{doctorToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/schedule?startDate=2024-06-27T03:30:00.000Z&endDate=2024-06-27T04:00:00.000Z",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"schedule"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "7",
+									"disabled": true
+								},
+								{
+									"key": "startDate",
+									"value": "2024-06-27T03:30:00.000Z"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-06-27T04:00:00.000Z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Doctor Schedule Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{doctorToken}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scheduleIds\": [\r\n        \"11e37c24-3b19-4060-827c-d8e66ef18015\",\r\n        \"12d3048d-3b62-46bc-a8a4-86f93e430e6e\",\r\n        \"1bb9e0b8-007a-4aa9-92a2-ee4230bbe357\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/doctor-schedule/my-schedule?isBooked=false",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"doctor-schedule",
+								"my-schedule"
+							],
+							"query": [
+								{
+									"key": "isBooked",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Appointment",
+			"item": [
+				{
+					"name": "Book Appointment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/appointment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"appointment"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payments",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{patient_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/payments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"payments"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Department",
+			"item": [
+				{
+					"name": "Create department",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"departmentName\": \"Dermatology\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/department",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"department"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all dep",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"departmentName\": \"Cardiology\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/department",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"department"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"departmentName\": \"Cardiology\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/department/573eadff-94a5-4649-b096-455217494eba",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"department",
+								"573eadff-94a5-4649-b096-455217494eba"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get sinlge",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/department/573eadff-94a5-4649-b096-455217494eba",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"department",
+								"573eadff-94a5-4649-b096-455217494eba"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/department/573eadff-94a5-4649-b096-455217494eba",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"department",
+								"573eadff-94a5-4649-b096-455217494eba"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contact",
+			"item": [
+				{
+					"name": "Send contact",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"fahim\",\r\n    \"email\": \"abdullahalfahin183@gmail.com\",\r\n    \"subject\": \"from healthcare contact form\",\r\n    \"message\": \"Hello for test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/contact",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"contact"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
