@@ -41,8 +41,7 @@
 
 <h3>🔑 Environment Variables</h3>
 
-<pre><code>
-NODE_ENV="development"
+<pre><code>NODE_ENV="development"
 PORT=3000
 DATABASE_URL=
 JWT_SECRET="ksfljkdsjflksdjflk"
