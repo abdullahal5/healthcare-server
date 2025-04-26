@@ -2,13 +2,12 @@ import { Admin, Prisma, UserStatus } from "@prisma/client";
 import { adminSearchableFields } from "./admin.constant";
 import { calculatePagination } from "../../../helper/paginationHelper";
 import { prisma } from "../../../shared/prisma";
+import { IAdminFilterRequest } from "./admin.interface";
+import { IPaginations } from "../../interfaces/pagination";
 
 const getAllAdminFromDB = async (
-  params: {
-    searchTerm?: string;
-    [key: string]: any;
-  },
-  options: any
+  params: IAdminFilterRequest,
+  options: IPaginations
 ) => {
   const andConditions: Prisma.AdminWhereInput[] = [];
   const { limit, page, skip, sortBy, sortOrder } = calculatePagination(options);
@@ -19,7 +18,7 @@ const getAllAdminFromDB = async (
     andConditions.push({
       AND: Object.keys(filterData).map((key) => ({
         [key]: {
-          equals: filterData[key],
+          equals: (filterData as any)[key],
         },
       })),
     });
@@ -68,9 +67,7 @@ const getAllAdminFromDB = async (
       limit,
       total,
     },
-    data: {
-      result,
-    },
+    data: result,
   };
 };
 
