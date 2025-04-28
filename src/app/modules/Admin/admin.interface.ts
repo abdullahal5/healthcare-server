@@ -3,5 +3,4 @@ export interface IAdminFilterRequest {
   email?: string | undefined;
   contactNumber?: string | undefined;
   searchTerm?: string | undefined;
-
 }

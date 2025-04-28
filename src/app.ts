@@ -15,14 +15,14 @@ import {
 
 const app: Application = express();
 
-// Security Middleware (Order Matters!)
+// Security Middleware 
 app.use(helmet());
 app.use(cors(corsConfigure));
 app.use(limiter);
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(doubleCsrfProtection);
+// app.use(doubleCsrfProtection);
 
 // Routes
 app.get("/", (req: Request, res: Response) => {
