@@ -12,7 +12,10 @@ model User {
   email              String     @unique
   role               UserRole
   password           String
+  lastLogin          DateTime?
   needPasswordChange Boolean    @default(true)
+  loginAttempts      Int        @default(0)
+  lockedUntil        DateTime?
   status             UserStatus @default(ACTIVE)
   createdAt          DateTime   @default(now())
   updatedAt          DateTime   @updatedAt

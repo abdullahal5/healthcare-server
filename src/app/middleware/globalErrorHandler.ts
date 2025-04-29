@@ -69,11 +69,11 @@ export const globalErrorHandler = (
     message = err?.message || message;
   }
 
-  return res.status(statusCode).json({
+  res.status(statusCode).json({
     success: false,
     message,
     errorSources,
-    error: config.env === "development" ? err : undefined,
+    // error: config.env === "development" ? err : undefined,
     stack: config.env === "development" ? err?.stack : undefined,
   });
 };

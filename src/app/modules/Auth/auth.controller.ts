@@ -23,10 +23,9 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
     message: "Logged in successfully!",
     data: {
       accessToken: result.accessToken,
-      needPasswordChange: true,
+      needPasswordChange: result.needPasswordChange,
     },
   });
-
 });
 
 const refreshToken = catchAsync(async (req: Request, res: Response) => {
@@ -38,11 +37,10 @@ const refreshToken = catchAsync(async (req: Request, res: Response) => {
     statusCode: httpStatus.OK,
     success: true,
     message: "Access token genereated successfully!",
-    data: result,
-    // data: {
-    //     accessToken: result.accessToken,
-    //     needPasswordChange: result.needPasswordChange
-    // }
+    data: {
+        accessToken: result.accessToken,
+        needPasswordChange: result.needPasswordChange
+    }
   });
 });
 
