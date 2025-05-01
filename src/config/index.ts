@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import path from "path";
+import { v2 as cloudinary } from "cloudinary";
 
 dotenv.config({ path: path.join(process.cwd(), ".env") });
 
@@ -28,5 +29,11 @@ export default {
     failUrl: process.env.FAIL_URL,
     sslPaymentApi: process.env.SSL_PAYMENT_API,
     sslValidationApi: process.env.SSL_VALIDATIOIN_API,
+  },
+  cloudinary: {
+    cloud_name: process.env.CLOUDINARY_NAME_KEY,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET_KEY,
+    cloudinary_url: process.env.CLOUDINARY_URL,
   },
 };
