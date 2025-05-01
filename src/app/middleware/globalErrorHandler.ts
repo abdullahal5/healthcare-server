@@ -61,6 +61,17 @@ export const globalErrorHandler = (
       path: issue.path?.join("."),
       message: issue.message,
     }));
+  } 
+  
+  else if (err.name === "JsonWebTokenError") {
+    statusCode = httpStatus.BAD_REQUEST;
+    message = "Invalid token";
+    errorSources = [
+      {
+        path: err?.name || "error",
+        message: err.message,
+      },
+    ];
   }
 
   // Default unknown error
