@@ -1,9 +1,12 @@
-import { UserRole } from "@prisma/client";
+import { Prisma, UserRole } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { prisma } from "../../../shared/prisma";
 import { Request } from "express";
 import { IFile } from "../../interfaces/file";
 import { uploadToCloudinary } from "../../../helper/fileUploader";
+import { IPaginations } from "../../interfaces/pagination";
+import { calculatePagination } from "../../../helper/paginationHelper";
+import { userSearchAbleFields } from "./user.constant";
 
 const createAdminIntoDB = async (req: Request) => {
   const data = req.body;
@@ -103,8 +106,87 @@ const createPatientIntoDB = async (req: Request) => {
   return result;
 };
 
+const getAllFromDB = async (params: any, options: IPaginations) => {
+  const { page, limit, skip } = calculatePagination(options);
+  const { searchTerm, ...filterData } = params;
+
+  const andConditions: Prisma.UserWhereInput[] = [];
+
+  if (searchTerm) {
+    andConditions.push({
+      OR: userSearchAbleFields.map((field) => ({
+        [field]: {
+          contains: searchTerm,
+          mode: "insensitive",
+        },
+      })),
+    });
+  }
+
+  const whereConditons: Prisma.UserWhereInput =
+    andConditions.length > 0 ? { AND: andConditions } : {};
+
+  const result = await prisma.user.findMany({
+    where: whereConditons,
+    skip,
+    take: limit,
+    orderBy:
+      options.sortBy && options.sortOrder
+        ? {
+            [options.sortBy]: options.sortOrder,
+          }
+        : {
+            createdAt: "desc",
+          },
+    select: {
+      id: true,
+      email: true,
+      role: true,
+      needPasswordChange: true,
+      status: true,
+      createdAt: true,
+      updatedAt: true,
+      admin: true,
+      patient: true,
+      doctor: true,
+    },
+  });
+
+  const total = await prisma.user.count({
+    where: whereConditons,
+  });
+
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: result,
+  };
+};
+
+const changeStatus = async (id: string, status: UserRole) => {
+  await prisma.user.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  });
+
+  const updateUserStatus = await prisma.user.update({
+    where: {
+      id,
+    },
+    data: status,
+  });
+
+  return updateUserStatus;
+};
+
 export const UserService = {
   createAdminIntoDB,
   createDoctorIntoDB,
   createPatientIntoDB,
+  getAllFromDB,
+  changeStatus,
 };
