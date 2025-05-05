@@ -1,9 +1,10 @@
 import { addHours, addMinutes, format } from "date-fns";
-import { Schedule } from "@prisma/client";
+import { Prisma, Schedule } from "@prisma/client";
 import { IFilterRequest, ISchedule } from "./schedule.interface";
 import { IPaginations } from "../../interfaces/pagination";
 import { JwtPayload } from "jsonwebtoken";
 import { prisma } from "../../../shared/prisma";
+import { calculatePagination } from "../../../helper/paginationHelper";
 
 const inserIntoDB = async (payload: ISchedule): Promise<Schedule[]> => {
   const { startDate, endDate, startTime, endTime } = payload;
@@ -69,7 +70,76 @@ const getAllFromDB = async (
   filters: IFilterRequest,
   options: IPaginations,
   user: JwtPayload
-) => {};
+) => {
+  const { limit, page, skip } = calculatePagination(options);
+  const { startDate, endDate } = filters;
+
+  const andConditions = [];
+
+  if (startDate && endDate) {
+    andConditions.push({
+      AND: [
+        {
+          startDateTime: {
+            gte: startDate,
+          },
+        },
+        {
+          endDateTime: {
+            lte: endDate,
+          },
+        },
+      ],
+    });
+  }
+
+  const whereConditions: Prisma.ScheduleWhereInput =
+    andConditions.length > 0 ? { AND: andConditions } : {};
+
+  const doctorSchedules = await prisma.doctorSchedules.findMany({
+    where: {
+      doctor: {
+        email: user.email,
+      },
+    },
+  });
+
+  const doctorScheduleIds = doctorSchedules.map(
+    (doctorSchedule) => doctorSchedule.scheduleId
+  );
+
+  const result = await prisma.schedule.findMany({
+    where: whereConditions,
+    skip,
+    take: limit,
+    orderBy:
+      options.sortBy && options.sortOrder
+        ? {
+            [options.sortBy]: options.sortOrder,
+          }
+        : {
+            createdAt: "desc",
+          },
+  });
+
+  const total = await prisma.schedule.count({
+    where: {
+      ...whereConditions,
+      id: {
+        notIn: doctorScheduleIds,
+      },
+    },
+  });
+
+  return {
+    data: result,
+    meta: {
+      total,
+      page,
+      limit,
+    },
+  };
+};
 
 const getByIdFromDB = async (id: string): Promise<Schedule | null> => {
   const result = await prisma.schedule.findUnique({

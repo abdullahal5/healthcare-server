@@ -16,26 +16,20 @@ const inserIntoDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getAllFromDB = catchAsync(
-  async (req: Request, res: Response) => {
-    const filters = pick(req.query, ["startDate", "endDate"]);
-    const options = pick(req.query, ["limit", "page", "sortBy", "sortOrder"]);
+const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, ["startDate", "endDate"]);
+  const options = pick(req.query, ["limit", "page", "sortBy", "sortOrder"]);
 
-    const user = req.user;
-    const result = await ScheduleService.getAllFromDB(
-      filters,
-      options,
-      user
-    );
+  const user = req.user;
+  const result = await ScheduleService.getAllFromDB(filters, options, user);
 
-    SendResponse(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: "Schedule fetched successfully!",
-      data: result,
-    });
-  }
-);
+  SendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Schedule fetched successfully!",
+    data: result,
+  });
+});
 
 const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
