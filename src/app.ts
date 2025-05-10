@@ -12,10 +12,12 @@ import {
   doubleCsrfProtection,
   limiter,
 } from "./utils/middleware-configure";
+import { AppointmentService } from "./app/modules/Appointment/appointment.service";
+import cron from "node-cron";
 
 const app: Application = express();
 
-// Security Middleware 
+// Security Middleware
 app.use(helmet());
 app.use(cors(corsConfigure));
 app.use(limiter);
@@ -33,6 +35,14 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/api/v1", router);
+
+cron.schedule("* * * * *", () => {
+  try {
+    AppointmentService.cancelUnpaidAppointments();
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 // Error Handling
 app.use(notfound);
