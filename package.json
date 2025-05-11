@@ -2,7 +2,8 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
-    "prod": "NODE_ENV=production node ./dist/server.js"
+    "prod": "NODE_ENV=production node ./dist/server.js",
+    "seed": "ts-node-dev --respawn --transpile-only src/utils/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.7.0",
