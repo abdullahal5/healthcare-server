@@ -3,6 +3,7 @@ import httpStatus from "http-status";
 import AppError from "../../shared/appError";
 import { TErrorSources } from "../interfaces/error";
 import config from "../../config";
+import { Prisma } from "@prisma/client";
 
 export const globalErrorHandler = (
   err: any,
@@ -61,9 +62,7 @@ export const globalErrorHandler = (
       path: issue.path?.join("."),
       message: issue.message,
     }));
-  } 
-  
-  else if (err.name === "JsonWebTokenError") {
+  } else if (err.name === "JsonWebTokenError") {
     statusCode = httpStatus.BAD_REQUEST;
     message = "Invalid token";
     errorSources = [
@@ -72,6 +71,32 @@ export const globalErrorHandler = (
         message: err.message,
       },
     ];
+  }
+
+  // prisma validation error
+  else if (err instanceof Prisma.PrismaClientValidationError) {
+    statusCode = httpStatus.BAD_REQUEST;
+    message = "Validation error";
+    errorSources = [
+      {
+        path: err?.name || "error",
+        message: err.message,
+      },
+    ];
+  }
+
+  // prisma duplicate error
+  else if (err instanceof Prisma.PrismaClientKnownRequestError) {
+    if (err.code === "P2002") {
+      statusCode = httpStatus.BAD_REQUEST;
+      message = "Duplicate key error";
+      errorSources = [
+        {
+          path: err?.meta?.target || "error",
+          message: err.message,
+        },
+      ];
+    }
   }
 
   // Default unknown error
@@ -85,6 +110,6 @@ export const globalErrorHandler = (
     message,
     errorSources,
     // error: config.env === "development" ? err : undefined,
-    stack: config.env === "development" ? err?.stack : undefined,
+    // stack: config.env === "development" ? err?.stack : undefined,
   });
 };
