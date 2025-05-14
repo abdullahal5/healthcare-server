@@ -18,9 +18,9 @@ import cron from "node-cron";
 const app: Application = express();
 
 // Security Middleware
-// app.use(helmet());
-// app.use(cors(corsConfigure));
-// app.use(limiter);
+app.use(helmet());
+app.use(cors(corsConfigure));
+app.use(limiter);
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -36,6 +36,7 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/api/v1", router);
 
+// Cron Job
 cron.schedule("* * * * *", () => {
   try {
     AppointmentService.cancelUnpaidAppointments();
@@ -48,4 +49,5 @@ cron.schedule("* * * * *", () => {
 app.use(notfound);
 app.use(globalErrorHandler);
 
+// Export for Vercel
 export default app;
