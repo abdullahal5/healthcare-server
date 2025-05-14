@@ -43,7 +43,7 @@ const validatePayment = async (payload: any) => {
   //   throw new AppError(httpStatus.BAD_REQUEST, "Payment failed!");
   // }
 
-  const response = payload
+  const response = payload;
 
   await prisma.$transaction(async (tx) => {
     const updatedPaymentData = await tx.payment.update({

@@ -1,9 +1,9 @@
 import express from "express";
 import { AppointmentController } from "./appointment.controller";
-import { UserRole } from "@prisma/client";
 import { auth } from "../../middleware/auth";
 import { validateRequest } from "../../middleware/validateRequest";
 import { AppointmentValidation } from "./appointment.validation";
+import { UserRole } from "@prisma/client";
 
 const router = express.Router();
 

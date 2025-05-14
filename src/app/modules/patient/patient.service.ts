@@ -93,7 +93,7 @@ const updateIntoDB = async (id: string, payload: any) => {
   const patientInfo = await prisma.patient.findUniqueOrThrow({
     where: {
       id,
-      isDeleted: false
+      isDeleted: false,
     },
     include: {
       patientHealthData: true,

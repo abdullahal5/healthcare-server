@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
-import { UserRole } from "@prisma/client";
 import { prisma } from "../shared/prisma";
+import { UserRole } from "@prisma/client";
 
 const seedSuperAdmin = async () => {
   try {

@@ -1,10 +1,15 @@
 import { addHours, addMinutes, format } from "date-fns";
-import { Prisma, Schedule } from "@prisma/client";
 import { IFilterRequest, ISchedule } from "./schedule.interface";
 import { IPaginations } from "../../interfaces/pagination";
 import { JwtPayload } from "jsonwebtoken";
 import { prisma } from "../../../shared/prisma";
 import { calculatePagination } from "../../../helper/paginationHelper";
+import { Prisma, Schedule } from "@prisma/client";
+
+const convertDateTIme = async (date: Date) => {
+  const offset = date.getTimezoneOffset() * 60000;
+  return new Date(date.getTime() + offset);
+};
 
 const inserIntoDB = async (payload: ISchedule): Promise<Schedule[]> => {
   const { startDate, endDate, startTime, endTime } = payload;
@@ -42,6 +47,15 @@ const inserIntoDB = async (payload: ISchedule): Promise<Schedule[]> => {
         startDateTime: startDateTime,
         endDateTime: addMinutes(startDateTime, interval),
       };
+
+      // UTC time
+      // const s = await convertDateTIme(startDateTime);
+      // const e = await convertDateTIme(addMinutes(startDateTime, interval));
+
+      // const scheduleData = {
+      //   startDateTime: s,
+      //   endDateTime: e,
+      // };
 
       const existingSchedule = await prisma.schedule.findFirst({
         where: {

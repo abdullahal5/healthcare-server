@@ -45,7 +45,7 @@ const getSuperAdminMetaData = async () => {
   };
 
   const barChartData = await getBarChartData();
-  const pieChartData = await getPieChartData()
+  const pieChartData = await getPieChartData();
 
   return {
     appointmentCount,

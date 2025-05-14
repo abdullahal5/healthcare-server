@@ -2,67 +2,67 @@ import { Server } from "http";
 import app from "./app";
 import config from "./config";
 
-// Optional: if using Prisma
-// import { prisma } from "./lib/prisma";
-
 const port = Number(config.port);
 let server: Server;
 
 async function main() {
   try {
+    const env = process.env.NODE_ENV || "development";
+    const isDevelopment = env !== "production";
+
+    console.log(`Environment: ${env}`);
+
+    if (isDevelopment) {
+      console.log("Running in development mode - using Vercel's server");
+      return app; // In Vercel Dev, Vercel handles the server
+    }
+
     server = app.listen(port, () => {
-      console.log("✅ 🚀 Server is running successfully!");
-      console.log(`🌐 Listening on: http://localhost:${port}`);
+      console.log(`Server is running successfully on http://localhost:${port}`);
     });
 
     server.on("error", (err) => {
-      console.error("❌ Server failed to start:", err);
+      console.error("❌ Server error:", err);
     });
-
-    // Optional: Check DB connection on startup if using Prisma or pg
-    // await prisma.$connect();
-    // console.log("🛢️ Connected to PostgreSQL database!");
-  } catch (error: any) {
-    console.error("🔥 Failed to launch server:", error?.message || error);
+  } catch (error) {
+    console.error("🔥 Failed to launch server:", error);
     process.exit(1);
   }
 }
 
-main();
+if (process.env.NODE_ENV !== "production") {
+  server = app.listen(config.port, () => {
+    console.log(`Server is on ${config.port}`);
+  });
+}
 
 // =======================
-// 🔒 Global error handlers
+// 🔒 Global Error Handlers
 // =======================
 
-// Handle unhandled promise rejections
 process.on("unhandledRejection", (reason) => {
   console.error("🚨 Unhandled Rejection:", reason);
   shutdown();
 });
 
-// Handle uncaught exceptions
 process.on("uncaughtException", (error) => {
   console.error("💥 Uncaught Exception:", error);
   shutdown();
 });
 
-// Graceful shutdown
+process.on("SIGTERM", () => {
+  console.log("📴 SIGTERM received. Shutting down...");
+  shutdown();
+});
+
 function shutdown() {
   console.log("👋 Shutting down gracefully...");
   if (server) {
     server.close(() => {
       console.log("✅ Server closed.");
-      // Close DB connection if needed
-      // await prisma.$disconnect();
-      process.exit(1);
+      process.exit(0);
     });
   } else {
-    process.exit(1);
+    process.exit(0);
   }
 }
-
-// Optional: Handle SIGTERM (useful in deployment environments)
-process.on("SIGTERM", () => {
-  console.log("📴 SIGTERM received. Gracefully shutting down...");
-  shutdown();
-});
