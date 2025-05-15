@@ -1,29 +1,4 @@
-export type ICloudinaryResponse = {
-  asset_id: string;
-  public_id: string;
-  version: number;
-  version_id: string;
-  signature: string;
-  width: number;
-  height: number;
-  format: string;
-  resource_type: string;
-  created_at: string;
-  tags: string[];
-  bytes: number;
-  type: string;
-  etag: string;
-  placeholder: boolean;
-  url: string;
-  secure_url: string;
-  folder: string;
-  overwritten: boolean;
-  original_filename: string;
-  original_extension: string;
-  api_key: string;
-};
-
-export type IFile = {
+export interface IFile {
   fieldname: string;
   originalname: string;
   encoding: string;
@@ -32,4 +7,12 @@ export type IFile = {
   filename: string;
   path: string;
   size: number;
-};
+  buffer?: Buffer;
+}
+
+export interface ICloudinaryResponse {
+  url: string;
+  secure_url: string;
+  public_id: string;
+  resource_type: string;
+}
