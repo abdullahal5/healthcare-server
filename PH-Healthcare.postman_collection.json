@@ -24,15 +24,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/auth/login",
-							"protocol": "http",
+							"raw": "{{URL}}/auth/login",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "5000",
 							"path": [
-								"api",
-								"v1",
 								"auth",
 								"login"
 							]
@@ -44,17 +40,20 @@
 					"name": "refresh-token",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/auth/refresh-token",
-							"protocol": "http",
+							"raw": "{{URL}}/auth/refresh-token",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"auth",
 								"refresh-token"
 							]
@@ -65,17 +64,17 @@
 				{
 					"name": "change-password",
 					"request": {
-						"method": "PATCH",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluMUBob3RtYWlsLmNvbSIsInJvbGUiOiJQQVRJRU5UIiwiaWF0IjoxNzExMzgxNjMwLCJleHAiOjE3MTE0NjgwMzB9.3KchOYk0yZAY-hTzorrWB8ONm_PmhqDft5YIjKxG3Y0",
+								"value": "{{ADMIN_TOKEN}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"oldPassword\": \"newpassword\",\r\n    \"newPassword\": \"newpassword1\"\r\n}",
+							"raw": "{\r\n    \"oldPassword\": \"12345678\",\r\n    \"newPassword\": \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -83,15 +82,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/auth/change-password",
-							"protocol": "http",
+							"raw": "{{URL}}/auth/change-password",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"auth",
 								"change-password"
 							]
@@ -106,7 +101,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"usadadu09@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"email\": \"abdullahalfahin183@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -114,15 +109,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/auth/forgot-password",
-							"protocol": "http",
+							"raw": "{{URL}}/auth/forgot-password",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"auth",
 								"forgot-password"
 							]
@@ -137,13 +128,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMyZGY1N2Y3LTIzMTMtNGViMS05NGE1LWQ2M2ViMDU3M2Q0YyIsImVtYWlsIjoidXNhZGFkdTA5QGdtYWlsLmNvbSIsImlhdCI6MTcxMTM5OTE1NSwiZXhwIjoxNzExMzk5NDU1fQ.lMfB-MS9lGv_X_gbB20Ke2rniLME_5uRt-HZ0XdCADg",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiZHVsbGFoYWxmYWhpbjE4M0BnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3NDYwMzMxNDcsImV4cCI6MTc0NjAzMzQ0N30.lMU1BLSpbyTOdC6X2zv3dVrHCXB21a2nRSryQKZH7ys",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n \r\n    \"id\": \"32df57f7-2313-4eb1-94a5-d63eb0573d4c\",\r\n    \"password\": \"newpassword\"\r\n \r\n}",
+							"raw": "{\r\n \r\n    \"id\": \"2afe13e0-a197-4051-a51f-575b3f31d07f\",\r\n    \"password\": \"12345678\"\r\n \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -151,15 +142,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/auth/reset-password",
-							"protocol": "http",
+							"raw": "{{URL}}/auth/reset-password",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"auth",
 								"reset-password"
 							]
@@ -179,7 +166,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluN0Bob3RtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcxMTQ3MTM3NCwiZXhwIjoxNzExNTU3Nzc0fQ.Uz54olEpPiTNbENaJuUIJiShBOeughjGPNG8hJx-p10",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1paGFkMTgzQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NjAyMjU1MCwiZXhwIjoxNzQ2NDU0NTUwfQ.47KEYw29YSTM3Z8kCoL_e_2eXjl80ELokKKTK5JQ1zA",
 								"type": "text"
 							}
 						],
@@ -187,27 +174,23 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "file",
-									"type": "file",
-									"src": "/C:/Users/Naimur Reza/Downloads/Screenshot 2024-03-09 at 23-00-42 RRN Project Details.png"
+									"key": "data",
+									"value": "{\n    \"password\": \"123456\",\n    \"admin\": {\n        \"name\": \"Fahim\",\n        \"email\": \"fahim185@gmail.com\",\n        \"contactNumber\": \"01914049327\"\n    }\n}",
+									"type": "text"
 								},
 								{
-									"key": "data",
-									"value": "{\n    \"password\": \"newpassword\",\n    \"admin\": {\n        \"email\": \"cloud@admin.com\",\n        \"name\": \"James Bond\",\n\"contactNumber\":\"0191928181\"\n    }\n}",
-									"type": "text"
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/FAHIM/Pictures/Screenshot 2025-04-17 201858.png"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/user/create-admin",
-							"protocol": "http",
+							"raw": "{{URL}}/user/create-admin",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"user",
 								"create-admin"
 							]
@@ -222,7 +205,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTg4ZWYyNC1jMTM1LTRjMTUtOTRmMC1mMWQxMWEyZWVjM2YiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJlbWFpbCI6InN1cGVyQGFkbWluLmNvbSIsImlhdCI6MTcxNDkzMDc1OSwiZXhwIjoxNzE3NTIyNzU5fQ.5qfCKTuogdIEV_F3INvpMvlq05FO9Yd8iBNzC7u5vdk",
+								"value": "{{ADMIN_TOKEN}}",
 								"type": "text"
 							}
 						],
@@ -232,25 +215,21 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/C:/Users/FAHIM/Pictures/Anime-Cat-Girls-Download-Free-PNG-removebg-preview 1.png"
+									"src": "/C:/Users/FAHIM/Pictures/Screenshot 2025-04-17 201858.png"
 								},
 								{
 									"key": "data",
-									"value": "{\n  \"password\": \"securepassword123\",\n  \"doctor\": {\n    \"email\": \"doctor3453451@example.com\",\n    \"name\": \"sdfadfe\",\n    \"contactNumber\": \"+1234567890\",\n    \"city\": \"New York\",\n    \"address\": \"123 Main Street, NY\",\n    \"registrationNumber\": \"REG123456\",\n    \"experience\": 10,\n    \"gender\": \"MALE\",\n    \"apointmentFee\": 100,\n    \"qualification\": \"MBBS, MD\",\n    \"currentWorkingPlace\": \"New York General Hospital\",\n    \"designation\": \"Senior Cardiologist\",\n    \"departmentId\": \"8c7f1719-c199-4f22-ab0d-0855741fde70\"\n  }\n}\n",
+									"value": "{\n  \"password\": \"123456\",\n  \"doctor\": {\n    \"email\": \"doctor@example.com\",\n    \"name\": \"sdfadfe\",\n    \"contactNumber\": \"+1234567890\",\n    \"address\": \"123 Main Street, NY\",\n    \"registrationNumber\": \"REG123456\",\n    \"experience\": 10,\n    \"gender\": \"MALE\",\n    \"appointmentFee\": 100,\n    \"qualification\": \"MBBS, MD\",\n    \"currentWorkingPlace\": \"New York General Hospital\",\n    \"designation\": \"Senior Cardiologist\"\n  }\n}\n",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/user/create-doctor",
-							"protocol": "http",
+							"raw": "{{URL}}/user/create-doctor",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "5000",
 							"path": [
-								"api",
-								"v1",
 								"user",
 								"create-doctor"
 							]
@@ -265,7 +244,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{adminToken}}",
+								"value": "{{ADMIN_TOKEN}}",
 								"type": "text"
 							}
 						],
@@ -275,25 +254,21 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/C:/Users/Naimur Reza/Desktop/1709896049064.jpg"
+									"src": "/C:/Users/FAHIM/Pictures/Anime-Cat-Girls-Download-Free-PNG-removebg-preview 1.png"
 								},
 								{
 									"key": "data",
-									"value": "{\n  \"password\": \"newpassword\",\n  \"patient\": {\n    \"name\": \"Hamid\",\n    \"email\": \"ham@example.com\",\n    \"contactNumber\": \"1234567890\",\n\"address\":\"Feni\"\n}\n}",
+									"value": "{\n  \"password\": \"123456\",\n  \"patient\": {\n    \"name\": \"Hamid\",\n    \"email\": \"ham@example.com\",\n    \"contactNumber\": \"1234567890\",\n\"address\":\"Feni\"\n}\n}",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/user/create-patient",
-							"protocol": "http",
+							"raw": "{{URL}}/user/create-patient",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"user",
 								"create-patient"
 							]
@@ -305,18 +280,40 @@
 					"name": "Get all users",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ADMIN_TOKEN}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/user",
-							"protocol": "http",
+							"raw": "{{URL}}/user?email=ham@example.com&searchTerm=fahim",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"user"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "ham@example.com"
+								},
+								{
+									"key": "limit",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "fahim"
+								}
 							]
 						}
 					},
@@ -324,15 +321,18 @@
 				},
 				{
 					"name": "Update status",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
-						"header": [],
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ADMIN_TOKEN}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\r\n    \"status\": \"ACTIVE\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -340,7 +340,15 @@
 							}
 						},
 						"url": {
-							"raw": ""
+							"raw": "{{URL}}/user/status/2f67d1d6-31e4-4de0-af09-27d10eec41a8",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user",
+								"status",
+								"2f67d1d6-31e4-4de0-af09-27d10eec41a8"
+							]
 						}
 					},
 					"response": []
@@ -352,20 +360,16 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsb3VkQGFkbWluLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcxMTk2NzE1MSwiZXhwIjoxNzEyMDUzNTUxfQ.inzQ15zHJG7dScdKF3Q2p20yNg-2qyoT20bX-TBMtS8",
+								"value": "{{ADMIN_TOKEN}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/user/me",
-							"protocol": "http",
+							"raw": "{{URL}}/user/me",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"user",
 								"me"
 							]
@@ -380,7 +384,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsb3VkQGFkbWluLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTcxMjEzNzMyNSwiZXhwIjoxNzEyMzk2NTI1fQ.LhhJzMDrHYTuX7LG4c4fUpMou8mnfpVmIwYR3ikITFQ",
+								"value": "{{ADMIN_TOKEN}}",
 								"type": "text"
 							}
 						],
@@ -390,7 +394,7 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/C:/Users/Naimur Reza/Desktop/levi.jpg"
+									"src": "/C:/Users/FAHIM/Pictures/4.png"
 								},
 								{
 									"key": "data",
@@ -400,15 +404,11 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/user/update-my-profile",
-							"protocol": "http",
+							"raw": "{{URL}}/user/update-my-profile",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"user",
 								"update-my-profile"
 							]
@@ -427,27 +427,40 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/admin?sortBy=name&sortOrder=asc&page=6&limit=2",
-							"protocol": "http",
+							"raw": "{{URL}}/admin?isDeleted=&page=1&limit=1&sortBy=name&sortOrder=asc",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"admin"
 							],
 							"query": [
 								{
 									"key": "searchTerm",
-									"value": "hot",
+									"value": "mihad",
 									"disabled": true
 								},
 								{
 									"key": "isDeleted",
-									"value": "",
+									"value": ""
+								},
+								{
+									"key": "name",
+									"value": "Mihad",
 									"disabled": true
+								},
+								{
+									"key": "contactNumber",
+									"value": "01914049327",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
 								},
 								{
 									"key": "sortBy",
@@ -456,14 +469,6 @@
 								{
 									"key": "sortOrder",
 									"value": "asc"
-								},
-								{
-									"key": "page",
-									"value": "6"
-								},
-								{
-									"key": "limit",
-									"value": "2"
 								}
 							]
 						}
@@ -573,15 +578,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/admin/2b3a5981-5fd9-4f86-954f-997f388c2848",
-							"protocol": "http",
+							"raw": "{{URL}}/admin/2b3a5981-5fd9-4f86-954f-997f388c2848",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"admin",
 								"2b3a5981-5fd9-4f86-954f-997f388c2848"
 							]
@@ -596,7 +597,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Will\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Mihad\",\r\n    \"contactNumber\": \"01914049327\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -604,17 +605,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/admin/2b3a5981-5fd9-4f86-954f-997f388c2848",
-							"protocol": "http",
+							"raw": "{{URL}}/admin/dc4a73c4-be43-4b7f-ae2d-f85f0af7bfda",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"admin",
-								"2b3a5981-5fd9-4f86-954f-997f388c2848"
+								"dc4a73c4-be43-4b7f-ae2d-f85f0af7bfda"
 							]
 						}
 					},
@@ -626,17 +623,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/admin/573eadff-94a5-4649-b096-455217494eba",
-							"protocol": "http",
+							"raw": "{{URL}}/admin/a17a7c59-f029-4caa-ad22-0554976639a8",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"admin",
-								"573eadff-94a5-4649-b096-455217494eba"
+								"a17a7c59-f029-4caa-ad22-0554976639a8"
 							]
 						}
 					},
@@ -648,17 +641,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/admin/573eadff-94a5-4649-b096-455217494eba",
-							"protocol": "http",
+							"raw": "{{URL}}/admin/soft/b64c9413-9d54-4064-ab86-4773f94a6be8",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"admin",
-								"573eadff-94a5-4649-b096-455217494eba"
+								"soft",
+								"b64c9413-9d54-4064-ab86-4773f94a6be8"
 							]
 						}
 					},
@@ -681,15 +671,11 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:5000/api/v1/doctor?departmentName=neurology",
-							"protocol": "http",
+							"raw": "{{URL}}/doctor",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "5000",
 							"path": [
-								"api",
-								"v1",
 								"doctor"
 							],
 							"query": [
@@ -720,7 +706,13 @@
 								},
 								{
 									"key": "departmentName",
-									"value": "neurology"
+									"value": "neurology",
+									"disabled": true
+								},
+								{
+									"key": "specialties",
+									"value": "Brainologists",
+									"disabled": true
 								}
 							]
 						}
@@ -734,12 +726,12 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsb3VkQGFkbWluLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTcxMjU2MjIzMCwiZXhwIjoxNzEyODIxNDMwfQ.qGdTyVnDhLGmctK0DN1W6E8m23W83tm_QVshxgfvHf0",
+								"value": "{{ADMIN_TOKEN}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/admin/2b3a5981-5fd9-4f86-954f-997f388c2848",
+							"raw": "http://localhost:3000/api/v1/doctor/6ce2ec48-1d65-4d86-8250-84a4623bbf15",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -748,8 +740,8 @@
 							"path": [
 								"api",
 								"v1",
-								"admin",
-								"2b3a5981-5fd9-4f86-954f-997f388c2848"
+								"doctor",
+								"6ce2ec48-1d65-4d86-8250-84a4623bbf15"
 							]
 						}
 					},
@@ -762,13 +754,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsb3VkQGFkbWluLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTcxMjU2MjIzMCwiZXhwIjoxNzEyODIxNDMwfQ.qGdTyVnDhLGmctK0DN1W6E8m23W83tm_QVshxgfvHf0",
+								"value": "{{ADMIN_TOKEN}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"specialties\": [\r\n        {\r\n            \"specialtiesId\": \"df3e69ae-b4da-4ca8-8561-6a7886cbe43d\",\r\n            \"isDeleted\": false\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"name\": \"fahim\",\r\n    \"specialties\": [\r\n        {\r\n            \"specialtiesId\": \"80fe504b-4e3a-4d7f-824d-f4fbe35d5968\",\r\n            \"isDeleted\": false\r\n        },\r\n        {\r\n            \"specialtiesId\": \"a62d3533-5499-4116-aef7-8ccd95c78271\",\r\n            \"isDeleted\": false\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -776,7 +768,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/doctor/46059fef-fbcf-4ff6-8e79-a2f29616b4c5",
+							"raw": "http://localhost:3000/api/v1/doctor/a945e7cb-79cf-4cc0-ab25-b672dde4c9e3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -786,7 +778,7 @@
 								"api",
 								"v1",
 								"doctor",
-								"46059fef-fbcf-4ff6-8e79-a2f29616b4c5"
+								"a945e7cb-79cf-4cc0-ab25-b672dde4c9e3"
 							]
 						}
 					},
@@ -799,12 +791,12 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsb3VkQGFkbWluLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTcxMjU2MjIzMCwiZXhwIjoxNzEyODIxNDMwfQ.qGdTyVnDhLGmctK0DN1W6E8m23W83tm_QVshxgfvHf0",
+								"value": "{{ADMIN_TOKEN}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/doctor/573eadff-94a5-4649-b096-455217494eba",
+							"raw": "http://localhost:3000/api/v1/doctor/7ce9071b-3c12-4742-9d59-2b66bbb0b56d",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -814,7 +806,7 @@
 								"api",
 								"v1",
 								"doctor",
-								"573eadff-94a5-4649-b096-455217494eba"
+								"7ce9071b-3c12-4742-9d59-2b66bbb0b56d"
 							]
 						}
 					},
@@ -827,12 +819,12 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsb3VkQGFkbWluLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTcxMjU2MjIzMCwiZXhwIjoxNzEyODIxNDMwfQ.qGdTyVnDhLGmctK0DN1W6E8m23W83tm_QVshxgfvHf0",
+								"value": "{{ADMIN_TOKEN}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/doctor/573eadff-94a5-4649-b096-455217494eba",
+							"raw": "http://localhost:3000/api/v1/doctor/soft/a945e7cb-79cf-4cc0-ab25-b672dde4c9e3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -842,7 +834,8 @@
 								"api",
 								"v1",
 								"doctor",
-								"573eadff-94a5-4649-b096-455217494eba"
+								"soft",
+								"a945e7cb-79cf-4cc0-ab25-b672dde4c9e3"
 							]
 						}
 					},
@@ -865,31 +858,23 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/patient?sortBy=name",
-							"protocol": "http",
+							"raw": "{{URL}}/patient",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"patient"
 							],
 							"query": [
 								{
-									"key": "searchTerm",
-									"value": "hot",
-									"disabled": true
-								},
-								{
 									"key": "isDeleted",
-									"value": "",
+									"value": "true",
 									"disabled": true
 								},
 								{
 									"key": "sortBy",
-									"value": "name"
+									"value": "name",
+									"disabled": true
 								},
 								{
 									"key": "sortOrder",
@@ -904,6 +889,11 @@
 								{
 									"key": "limit",
 									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "ddfgdfg",
 									"disabled": true
 								}
 							]
@@ -923,17 +913,13 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/patient/2b3a5981-5fd9-4f86-954f-997f388c2848",
-							"protocol": "http",
+							"raw": "{{URL}}/patient/d23ea279-8a5c-4f83-a085-e818d4fb2286",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"patient",
-								"2b3a5981-5fd9-4f86-954f-997f388c2848"
+								"d23ea279-8a5c-4f83-a085-e818d4fb2286"
 							]
 						}
 					},
@@ -952,7 +938,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Williamson\",\r\n    \"patientHealthData\": {\r\n        \"gender\": \"MALE\",\r\n        \"dateOfBirth\": \"2 January 2003\",\r\n        \"bloodGroup\": \"O_NEGATIVE\",\r\n        \"height\": \"200cm\",\r\n        \"weight\": \"1000cm\"\r\n    },\r\n    \"medicalReport\": {\r\n        \"reportName\": \"New Medical Report2\",\r\n        \"reportLink\": \"New Report Link2\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"name\": \"Williamson\",\r\n    \"contactNumber\": \"01914049327\",\r\n    \"patientHealthData\": {\r\n        \"gender\": \"MALE\",\r\n        \"dateOfBirth\": \"2 January 2003\",\r\n        \"bloodGroup\": \"B_POSITIVE\",\r\n        \"height\": \"200cm\",\r\n        \"weight\": \"1000cm\"\r\n    },\r\n    \"medicalReport\": {\r\n        \"reportName\": \"New Medical Report2\",\r\n        \"reportLink\": \"New Report Link2\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -960,17 +946,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/patient/fd2d62c6-1784-41c6-8b67-dc6179c777e3",
-							"protocol": "http",
+							"raw": "{{URL}}/patient/d23ea279-8a5c-4f83-a085-e818d4fb2286",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"patient",
-								"fd2d62c6-1784-41c6-8b67-dc6179c777e3"
+								"d23ea279-8a5c-4f83-a085-e818d4fb2286"
 							]
 						}
 					},
@@ -988,17 +970,13 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/patient/c886c56a-1242-491f-8825-4b2e98e1a78e",
-							"protocol": "http",
+							"raw": "{{URL}}/patient/d23ea279-8a5c-4f83-a085-e818d4fb2286",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"patient",
-								"c886c56a-1242-491f-8825-4b2e98e1a78e"
+								"d23ea279-8a5c-4f83-a085-e818d4fb2286"
 							]
 						}
 					},
@@ -1016,17 +994,14 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/patient/573eadff-94a5-4649-b096-455217494eba",
-							"protocol": "http",
+							"raw": "{{URL}}/patient/soft/d23ea279-8a5c-4f83-a085-e818d4fb2286",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"patient",
-								"573eadff-94a5-4649-b096-455217494eba"
+								"soft",
+								"d23ea279-8a5c-4f83-a085-e818d4fb2286"
 							]
 						}
 					},
@@ -1053,26 +1028,22 @@
 							"formdata": [
 								{
 									"key": "data",
-									"value": "{\n    \"title\": \"Ophthalmologist\"\n}",
+									"value": "{\n    \"title\": \"Brainologist\"\n}",
 									"type": "text"
 								},
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/C:/Users/user/Desktop/Healthcare/healthcare-frontend/src/assets/svgs/Ophthalmology.svg"
+									"src": "/C:/Users/FAHIM/Pictures/Screenshot 2025-01-14 173924.png"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/specialties",
-							"protocol": "http",
+							"raw": "{{URL}}/specialties",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "5000",
 							"path": [
-								"api",
-								"v1",
 								"specialties"
 							]
 						}
@@ -1109,15 +1080,11 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/specialties",
-							"protocol": "http",
+							"raw": "{{URL}}/specialties",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "5000",
 							"path": [
-								"api",
-								"v1",
 								"specialties"
 							]
 						}
@@ -1131,7 +1098,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsb3VkQGFkbWluLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTcxMjU2MjIzMCwiZXhwIjoxNzEyODIxNDMwfQ.qGdTyVnDhLGmctK0DN1W6E8m23W83tm_QVshxgfvHf0",
+								"value": "{{ADMIN_TOKEN}}",
 								"type": "text"
 							}
 						],
@@ -1151,17 +1118,13 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/specialties/id",
-							"protocol": "http",
+							"raw": "{{URL}}/specialties/b8de5c76-9332-431a-b3c8-9b49935426bc",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"specialties",
-								"id"
+								"b8de5c76-9332-431a-b3c8-9b49935426bc"
 							]
 						}
 					},
@@ -1179,13 +1142,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{doctorToken}}",
+								"value": "{{ADMIN_TOKEN}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"startDate\": \"2024-04-18\",\r\n    \"endDate\": \"2024-04-24\",\r\n    \"startTime\": \"09:00\",\r\n    \"endTime\": \"17:00\"\r\n}",
+							"raw": "{\r\n    \"startDate\": \"2025-04-18\",\r\n    \"endDate\": \"2025-04-19\",\r\n    \"startTime\": \"09:30\",\r\n    \"endTime\": \"10:00\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1193,15 +1156,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/schedule",
-							"protocol": "http",
+							"raw": "{{URL}}/schedule",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"schedule"
 							]
 						}
@@ -1249,6 +1208,78 @@
 								{
 									"key": "endDate",
 									"value": "2024-06-27T04:00:00.000Z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ADMIN_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/schedule/989a7ef8-2762-4852-90d9-2f6b1c16df77",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"schedule",
+								"989a7ef8-2762-4852-90d9-2f6b1c16df77"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "7",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ADMIN_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/schedule/989a7ef8-2762-4852-90d9-2f6b1c16df77",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"schedule",
+								"989a7ef8-2762-4852-90d9-2f6b1c16df77"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "7",
+									"disabled": true
 								}
 							]
 						}
@@ -1303,21 +1334,17 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{doctorToken}}",
+								"value": "{{DOCTOR_TOKEN}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/schedule?startDate=2024-06-27T03:30:00.000Z&endDate=2024-06-27T04:00:00.000Z",
-							"protocol": "http",
+							"raw": "{{URL}}/doctor-schedule",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
-								"schedule"
+								"doctor-schedule"
 							],
 							"query": [
 								{
@@ -1332,11 +1359,18 @@
 								},
 								{
 									"key": "startDate",
-									"value": "2024-06-27T03:30:00.000Z"
+									"value": "2024-06-27T03:30:00.000Z",
+									"disabled": true
 								},
 								{
 									"key": "endDate",
-									"value": "2024-06-27T04:00:00.000Z"
+									"value": "2024-06-27T04:00:00.000Z",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "sdfadfe",
+									"disabled": true
 								}
 							]
 						}
@@ -1344,7 +1378,7 @@
 					"response": []
 				},
 				{
-					"name": "Create Doctor Schedule Copy",
+					"name": "My schedule",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1353,9 +1387,58 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{doctorToken}}",
-								"type": "text",
-								"disabled": true
+								"value": "{{DOCTOR_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/doctor-schedule/my-schedule",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"doctor-schedule",
+								"my-schedule"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2025-04-19T09:30:00.000Z",
+									"disabled": true
+								},
+								{
+									"key": "endDate",
+									"value": "2025-04-19T10:00:00.000Z",
+									"disabled": true
+								},
+								{
+									"key": "isBooked",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{DOCTOR_TOKEN}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -1368,23 +1451,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/doctor-schedule/my-schedule?isBooked=false",
-							"protocol": "http",
+							"raw": "{{URL}}/doctor-schedule/0564bccd-ea3b-4059-9d07-29388773e63d",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"doctor-schedule",
-								"my-schedule"
-							],
-							"query": [
-								{
-									"key": "isBooked",
-									"value": "false"
-								}
+								"0564bccd-ea3b-4059-9d07-29388773e63d"
 							]
 						}
 					},
@@ -1399,20 +1472,81 @@
 					"name": "Book Appointment",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ADMIN_TOKEN}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/appointment",
-							"protocol": "http",
+							"raw": "{{URL}}/appointment",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"appointment"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get my",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/appointment",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"appointment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ADMIN_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"INPROGRESS\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/appointment/status/25495199-253e-4a0e-ad0a-7179b871e6ad",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"appointment",
+								"status",
+								"25495199-253e-4a0e-ad0a-7179b871e6ad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Appointment",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
@@ -1422,7 +1556,7 @@
 			"name": "Payments",
 			"item": [
 				{
-					"name": "New Request",
+					"name": "Create",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1433,21 +1567,122 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/payments",
-							"protocol": "http",
+							"raw": "{{URL}}/payments",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"payments"
 							],
 							"query": [
 								{
 									"key": "",
 									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validate",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{patient_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/payments/ipn?tran_id=PH-HealthCare-2025-4-2-20-0-50",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"payments",
+								"ipn"
+							],
+							"query": [
+								{
+									"key": "amount",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "bank_tran_id",
+									"value": "151114130739MqCBNx5",
+									"disabled": true
+								},
+								{
+									"key": "card_brand",
+									"value": "VISA",
+									"disabled": true
+								},
+								{
+									"key": "card_issuer",
+									"value": "BRAC+BANK%2C+LTD.",
+									"disabled": true
+								},
+								{
+									"key": "card_issuer_country",
+									"value": "Bangladesh",
+									"disabled": true
+								},
+								{
+									"key": "card_issuer_country_code",
+									"value": "BD",
+									"disabled": true
+								},
+								{
+									"key": "card_no",
+									"value": "432149XXXXXX0667",
+									"disabled": true
+								},
+								{
+									"key": "card_type",
+									"value": "VISA-Brac+bank¤cy=BDT",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "VALID",
+									"disabled": true
+								},
+								{
+									"key": "store_amount",
+									"value": "1104.00",
+									"disabled": true
+								},
+								{
+									"key": "store_id",
+									"value": "abcli681b1be0c0401",
+									"disabled": true
+								},
+								{
+									"key": "tran_date",
+									"value": "2015-11-14+13%3A07%3A12",
+									"disabled": true
+								},
+								{
+									"key": "tran_id",
+									"value": "PH-HealthCare-2025-4-2-20-0-50"
+								},
+								{
+									"key": "val_id",
+									"value": "151114130742Bj94IBUk4uE5GRj",
+									"disabled": true
+								},
+								{
+									"key": "verify_sign",
+									"value": "2d6b6415dbe27c0380c5bd9f3753ea21",
+									"disabled": true
+								},
+								{
+									"key": "verify_key",
+									"value": "amount%2Cbank_tran_id%2Ccard_brand%2Ccard_issuer%2Ccard_issuer_country%2Ccard_issuer_country_code%2Ccard_no%2Ccard_type%2Ccurrency%2Cstatus%2Cstore_amount%2Cstore_id%2Ctran_date%2Ctran_id%2Cval_id",
 									"disabled": true
 								}
 							]
@@ -1634,6 +1869,281 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Prescription",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{DOCTOR_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"appointmentId\": \"22778fc4-6ba4-497c-a156-1d6f3953d089\",\r\n    \"instructions\": \"<div><h2>Doctor's Prescription</h2><div><h3>Patient Information</h3><p><strong>Name:</strong> John Doe</p><p><strong>Age:</strong> 32</p><p><strong>Date:</strong> 10th May 2025</p></div><div><h3>Prescribed Medications</h3><ul><li><strong>Amoxicillin 500mg:</strong> Take one capsule every 8 hours for 7 days.</li><li><strong>Ibuprofen 200mg:</strong> Take one tablet every 6 hours as needed for pain.</li><li><strong>Cetirizine 10mg:</strong> Take one tablet before bedtime for 5 days.</li></ul></div><div><h3>Special Instructions</h3><p>Avoid alcohol while taking these medications. Stay hydrated and rest well. If any adverse reactions occur, contact the doctor immediately.</p></div><div><p>Dr. Emily Carter</p><p>MD, Internal Medicine</p><p>Contact: +1 (234) 567-890</p></div></div>\",\r\n    \"followUpDate\": \"2025-05-27T14:04:34.223Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/prescription",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"prescription"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My prescriptions",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{PATIENT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/prescription/my-prescription",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"prescription",
+								"my-prescription"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all prescription",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ADMIN_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/prescription",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"prescription"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Review",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{PATIENT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"appointmentId\": \"22778fc4-6ba4-497c-a156-1d6f3953d089\",\r\n    \"rating\": 4.5,\r\n    \"comment\": \"nice\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/review",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"review"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all reviews",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{PATIENT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/review",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"review"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Meta",
+			"item": [
+				{
+					"name": "meta data",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ADMIN_TOKEN}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "{{DOCTOR_TOKEN}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "{{PATIENT_TOKEN}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SUPER_ADMIN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/meta",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"meta"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://localhost:3000/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "SUPER_ADMIN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1cGVyQGFkbWluLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTc0Njk1NTk0NCwiZXhwIjoxNzQ5NTQ3OTQ0fQ.RpfmwibiWlMbcxNbGoiyt3sNW9SLrdAL92_uShvOADQ",
+			"type": "string"
+		},
+		{
+			"key": "ADMIN_TOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1paGFkMTgzQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NjAyNDI5NCwiZXhwIjoxNzQ4NjE2Mjk0fQ.OjlE4-wusZw4Ptv-sWI_L97g7yCilyfu2KiBBsia3Yw",
+			"type": "string"
+		},
+		{
+			"key": "DOCTOR_TOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvY3RvckBleGFtcGxlLmNvbSIsInJvbGUiOiJET0NUT1IiLCJpYXQiOjE3NDYzNzcyNTQsImV4cCI6MTc0ODk2OTI1NH0.KNaanGSe1wK08RIcTIY2Zbn-VhkiVZ-d1enoj6PwrdE",
+			"type": "string"
+		},
+		{
+			"key": "PATIENT_TOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhbUBleGFtcGxlLmNvbSIsInJvbGUiOiJQQVRJRU5UIiwiaWF0IjoxNzQ2NDU3NDU2LCJleHAiOjE3NDkwNDk0NTZ9.g9d-KduxtvsXaLH74S7UmrzoD4Uh243by4CH486TPJg",
+			"type": "string"
 		}
 	]
 }
