@@ -26,11 +26,9 @@ export const { doubleCsrfProtection, generateToken } = doubleCsrf({
     return req.cookies.sessionId;
   },
   cookieName:
-   config.env === "production"
-      ? "__Host-psifi.x-csrf-token"
-      : "dev_csrf",
+    config.env === "production" ? "__Host-psifi.x-csrf-token" : "dev_csrf",
   cookieOptions: {
-    secure:config.env === "production",
+    secure: config.env === "production",
     sameSite: "lax",
     httpOnly: true,
     path: "/",
@@ -39,7 +37,7 @@ export const { doubleCsrfProtection, generateToken } = doubleCsrf({
 });
 
 export const corsConfigure = {
-  origin:config.allow_origins?.split(",") || true,
+  origin: ["https://healthcare-client.vercel.app", "http://localhost:3000"],
   credentials: true,
   exposedHeaders: ["X-CSRF-Token"],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
