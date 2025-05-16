@@ -22,28 +22,63 @@ export const uploadToCloudinary = async (
   file: IFile
 ): Promise<ICloudinaryResponse | undefined> => {
   return new Promise((resolve, reject) => {
-    cloudinary.uploader
-      .upload_stream(
-        {
-          resource_type: "auto",
-        },
-        (
-          error: UploadApiErrorResponse | undefined,
-          result: UploadApiResponse | undefined
-        ) => {
-          if (error) {
-            reject(error);
-          } else if (result) {
-            resolve({
-              url: result.url,
-              secure_url: result.secure_url,
-              public_id: result.public_id,
-              resource_type: result.resource_type,
-            });
-          }
+    if (!file.buffer) {
+      reject(new Error("File buffer is missing"));
+      return;
+    }
+
+    // Validate mimetype exists
+    if (!file.mimetype) {
+      reject(new Error("File mimetype is missing"));
+      return;
+    }
+
+    if (file.mimetype === "image/svg+xml") {
+      // Additional SVG validation
+      try {
+        const svgString = file.buffer.toString();
+        if (
+          !svgString.includes("<svg") ||
+          !svgString.includes('xmlns="http://www.w3.org/2000/svg"')
+        ) {
+          reject(new Error("Invalid SVG file"));
+          return;
         }
-      )
-      .end(file.buffer);
+
+        cloudinary.uploader.upload(
+          `data:image/svg+xml;base64,${file.buffer.toString("base64")}`,
+          {
+            resource_type: "image",
+            type: "upload",
+            format: "svg",
+            tags: ["svg_upload"],
+          },
+          (error, result) => {
+            if (error) reject(error);
+            else if (result) resolve(result);
+            else reject(new Error("No result from Cloudinary"));
+          }
+        );
+      } catch (e) {
+        reject(new Error("Failed to process SVG file"));
+      }
+    } else {
+      // For non-SVG files
+      cloudinary.uploader
+        .upload_stream(
+          {
+            resource_type: "image",
+            allowed_formats: ["jpg", "jpeg", "png", "webp"],
+            format: "auto",
+          },
+          (error, result) => {
+            if (error) reject(error);
+            else if (result) resolve(result);
+            else reject(new Error("No result from Cloudinary"));
+          }
+        )
+        .end(file.buffer);
+    }
   });
 };
 
