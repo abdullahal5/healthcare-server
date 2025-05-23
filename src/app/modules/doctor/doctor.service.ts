@@ -4,6 +4,9 @@ import { IPaginations } from "../../interfaces/pagination";
 import { calculatePagination } from "../../../helper/paginationHelper";
 import { doctorSearchableFields } from "./doctor.constant";
 import { prisma } from "../../../shared/prisma";
+import { Request } from "express";
+import { IFile } from "../../interfaces/file";
+import { uploadToCloudinary } from "../../../helper/fileUploader";
 
 const getAllFromDB = async (
   filters: IDoctorFilterRequest,
@@ -104,7 +107,16 @@ const getByIdFromDB = async (id: string) => {
   return result;
 };
 
-const updateIntoDB = async (id: string, payload: IDoctorUpdate) => {
+const updateIntoDB = async (req: Request) => {
+  const id = req.params.id;
+  const payload = req.body as IDoctorUpdate;
+  const file = req.file as IFile;
+
+  if (file) {
+    const uploadFile = await uploadToCloudinary(file);
+    req.body.profilePhoto = uploadFile?.secure_url || payload?.profilePhoto;
+  }
+
   const { specialties, ...doctorData } = payload;
 
   const doctorInfo = await prisma.doctor.findUniqueOrThrow({

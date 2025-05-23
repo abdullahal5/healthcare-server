@@ -40,5 +40,5 @@ export const corsConfigure = {
   origin: ["https://healthcare-client.vercel.app", "http://localhost:3000"],
   credentials: true,
   exposedHeaders: ["X-CSRF-Token"],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
 };
