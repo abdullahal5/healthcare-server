@@ -126,8 +126,8 @@ const refreshToken = async (token: string) => {
       email: userData.email,
       role: userData.role,
     },
-    config.jwt.refresh_token_secret as Secret,
-    config.jwt.refresh_token_expires_in as string
+    config.jwt.jwt_secret as Secret,
+    config.jwt.expires_in as string
   );
 
   return {
