@@ -20,7 +20,7 @@ const app: Application = express();
 // Security Middleware
 app.use(helmet());
 app.use(cors(corsConfigure));
-app.use(limiter);
+// app.use(limiter);
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

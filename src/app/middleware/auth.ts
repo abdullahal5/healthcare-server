@@ -8,7 +8,6 @@ import httpStatus from "http-status";
 export const auth = (...roles: string[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log(req.headers.authorization);
       const token = req.headers.authorization;
 
       if (!token) {

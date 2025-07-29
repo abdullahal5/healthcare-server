@@ -19,6 +19,8 @@ export default {
   emailSender: {
     email: process.env.EMAIL,
     app_pass: process.env.APP_PASS,
+    smtp_host: process.env.SMTP_HOST,
+    smtp_port: process.env.SMTP_PORT,
   },
   ssl: {
     store_id: process.env.SSLCOMMERZ_STORE_ID,

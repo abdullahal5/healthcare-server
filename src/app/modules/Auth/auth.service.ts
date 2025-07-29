@@ -7,7 +7,7 @@ import { prisma } from "../../../shared/prisma";
 import AppError from "../../../shared/appError";
 import { forbiddenStatuses } from "../../constant";
 import { jwtHelpers } from "../../../helper/jwtHelper";
-import emailSender from "../../../helper/emailSender";
+import { emailSender } from "../../../helper/emailSender";
 
 const MAX_ATTEMPTS = 10;
 const LOCK_DURATION_HOURS = 2;
@@ -178,25 +178,30 @@ const changePassword = async (user: any, payload: any) => {
 };
 
 const forgotPassword = async (payload: { email: string }) => {
-  const userData = await prisma.user.findUniqueOrThrow({
-    where: {
-      email: payload.email,
-      status: UserStatus.ACTIVE,
-    },
-  });
+  try {
+    const userData = await prisma.user.findUnique({
+      where: {
+        email: payload.email,
+        status: UserStatus.ACTIVE,
+      },
+    });
 
-  const resetPassToken = jwtHelpers.generateToken(
-    {
-      email: userData.email,
-      role: userData.role,
-    },
-    config.jwt.reset_pass_secret as Secret,
-    config.jwt.reset_pass_token_expires_in as string
-  );
+    if (!userData) {
+      throw new AppError(httpStatus.NOT_FOUND, "User not found");
+    }
 
-  const resetPasswordLink = `${config.reset_pass_link}/reset-password?userId=${userData.id}&token=${resetPassToken}`;
+    const resetPassToken = jwtHelpers.generateToken(
+      {
+        email: userData.email,
+        role: userData.role,
+      },
+      config.jwt.reset_pass_secret as Secret,
+      config.jwt.reset_pass_token_expires_in as string
+    );
 
-  const emailHtml = `
+    const resetPasswordLink = `${config.reset_pass_link}/reset-password?userId=${userData.id}&token=${resetPassToken}`;
+
+    const emailHtml = `
   <div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 40px;">
     <div style="max-width: 600px; margin: auto; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
       <div style="background-color: #4a90e2; padding: 20px 30px;">
@@ -231,7 +236,12 @@ const forgotPassword = async (payload: { email: string }) => {
   </div>
 `;
 
-  await emailSender(userData.email, emailHtml);
+    await emailSender(userData.email, emailHtml);
+    return { message: "Email sent. Please Check email", status: 200 };
+  } catch (error) {
+    console.error("🔴 Forgot password error:", error);
+    throw error; // rethrow for global error handler
+  }
 };
 
 const resetPassword = async (

@@ -11,10 +11,10 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
   const { refreshToken } = result;
 
   res.cookie("refreshToken", refreshToken, {
-    secure: config.env === "production",
     httpOnly: true,
-    sameSite: config.env === "production" ? "none" : "lax",
-    path: "/",
+    secure: true,
+    sameSite: "strict",
+    maxAge: 30 * 24 * 60 * 60 * 1000,
   });
 
   SendResponse(res, {
@@ -60,13 +60,12 @@ const changePassword = catchAsync(
 );
 
 const forgotPassword = catchAsync(async (req: Request, res: Response) => {
-  await AuthServices.forgotPassword(req.body);
-
+  const result = await AuthServices.forgotPassword(req.body);
   SendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: "Check your email!",
-    data: null,
+    data: result,
   });
 });
 
