@@ -5,17 +5,16 @@ export const emailSender = async (email: string, html: string) => {
   try {
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
-      port: 587, // or 465 (with secure: true)
-      secure: false, // true for 465, false for 587
+      port: 587,
+      secure: false,
       auth: {
         user: "abdullahalfahin183@gmail.com",
-        pass: "njvx iwhw wdnm mxqo", // App Password (no spaces?)
+        pass: "njvx iwhw wdnm mxqo",
       },
     });
 
     try {
       await transporter.verify();
-      console.log("✅ SMTP connection verified");
     } catch (error) {
       console.error("❌ SMTP verification failed:", error);
       throw error;
