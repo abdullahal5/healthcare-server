@@ -15,7 +15,7 @@ const initPayment = async (paymentData: IPaymentData) => {
       success_url: config.ssl.success_url,
       fail_url: config.ssl.fail_url,
       cancel_url: config.ssl.cancel_url,
-      ipn_url: "http://localhost:3030/ipn",
+      ipn_url: "https://healthcare-server-pi.vercel.app/api/v1/payment/ipn",
       shipping_method: "N/A",
       product_name: "Appointment",
       product_category: "Service",

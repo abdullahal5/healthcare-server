@@ -109,10 +109,10 @@ const getMySchedule = async (
         ? { [options.sortBy]: options.sortOrder }
         : {},
   });
+
   const total = await prisma.doctorSchedules.count({
     where: whereConditions,
   });
-
 
   return {
     data: result,
@@ -166,7 +166,7 @@ const getAllFromDB = async (
   const { limit, page, skip } = calculatePagination(options);
   const { searchTerm, ...filterData } = filters;
   const andConditions = [];
-
+ 
   if (searchTerm) {
     andConditions.push({
       doctor: {
@@ -191,11 +191,13 @@ const getAllFromDB = async (
       filterData.isBooked = false;
     }
     andConditions.push({
-      AND: Object.keys(filterData).map((key) => ({
-        [key]: {
-          equals: (filterData as any)[key],
-        },
-      })),
+      AND: Object.keys(filterData).map((key) => {
+        return {
+          [key]: {
+            equals: (filterData as any)[key],
+          },
+        };
+      }),
     });
   }
 

@@ -62,6 +62,7 @@ const deleteFromDB = catchAsync(
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, scheduleFilterableFields);
   const options = pick(req.query, ["limit", "page", "sortBy", "sortOrder"]);
+
   const result = await DoctorScheduleService.getAllFromDB(filters, options);
   SendResponse(res, {
     statusCode: httpStatus.OK,

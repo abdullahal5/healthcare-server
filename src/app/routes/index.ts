@@ -53,7 +53,7 @@ const moduleRoutes = [
     route: AppointmentRoutes,
   },
   {
-    path: "/payments",
+    path: "/payment",
     route: PaymentRoutes,
   },
   {

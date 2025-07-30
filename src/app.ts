@@ -45,6 +45,14 @@ cron.schedule("* * * * *", () => {
   }
 });
 
+// cron.schedule("*/10 * * * * *", async () => {
+//   try {
+//     await AppointmentService.cancelUnpaidAppointments();
+//   } catch (error) {
+//     console.error("Error cancelling unpaid appointments:", error);
+//   }
+// });
+
 // Error Handling
 app.use(notfound);
 app.use(globalErrorHandler);

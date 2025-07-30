@@ -1,3 +1,5 @@
+import status from "http-status";
+import AppError from "../../../shared/appError";
 import { prisma } from "../../../shared/prisma";
 import { SSLService } from "../SSL/ssl.service";
 import { PaymentStatus } from "@prisma/client";
@@ -33,17 +35,20 @@ const initPayment = async (appointmentId: string) => {
 };
 
 const validatePayment = async (payload: any) => {
-  // if (!payload || !payload.status || payload.status !== "VALID") {
-  //   throw new AppError(httpStatus.BAD_REQUEST, "Invalid payment");
-  // }
+  console.log("HELOO");
+  if (!payload || !payload.status || payload.status !== "VALID") {
+    throw new AppError(status.BAD_REQUEST, "Invalid payment");
+  }
 
-  // const response = await SSLService.validatePayment(payload);
+  const response = await SSLService.validatePayment(payload);
 
-  // if (response?.status !== "VALID") {
-  //   throw new AppError(httpStatus.BAD_REQUEST, "Payment failed!");
-  // }
+  if (response?.status !== "VALID") {
+    throw new AppError(status.BAD_REQUEST, "Payment failed!");
+  }
 
-  const response = payload;
+  console.log(response);
+
+  // const response = payload;
 
   await prisma.$transaction(async (tx) => {
     const updatedPaymentData = await tx.payment.update({
