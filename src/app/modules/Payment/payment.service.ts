@@ -2,7 +2,11 @@ import status from "http-status";
 import AppError from "../../../shared/appError";
 import { prisma } from "../../../shared/prisma";
 import { SSLService } from "../SSL/ssl.service";
-import { PaymentStatus } from "@prisma/client";
+import { PaymentStatus, Prisma } from "@prisma/client";
+import { JwtPayload } from "jsonwebtoken";
+import { IDoctorFilterRequest } from "../doctor/doctor.interface";
+import { IPaginations } from "../../interfaces/pagination";
+import { paymentSearchableFields } from "./payment.constant";
 
 const initPayment = async (appointmentId: string) => {
   const paymentData = await prisma.payment.findFirstOrThrow({
@@ -76,7 +80,83 @@ const validatePayment = async (payload: any) => {
   };
 };
 
+const getPatientPaymentHistory = async (
+  filters: IDoctorFilterRequest,
+  options: IPaginations,
+  user: JwtPayload
+) => {
+  const { limit = 10, page = 1 } = options;
+  const skip = (page - 1) * limit;
+  const { searchTerm, specialties, ...filterData } = filters;
+
+  const andConditions: Prisma.PaymentWhereInput[] = [];
+
+  // Filter by user email
+  andConditions.push({
+    appointment: {
+      patient: {
+        email: user.email,
+      },
+    },
+  });
+
+  // Search term filter
+  if (searchTerm) {
+    andConditions.push({
+      OR: paymentSearchableFields.map((field) => ({
+        [field]: {
+          contains: searchTerm,
+          mode: "insensitive",
+        },
+      })),
+    });
+  }
+
+  if (Object.keys(filterData).length > 0) {
+    const filterConditions = Object.keys(filterData).map((key) => ({
+      [key]: {
+        equals: (filterData as any)[key],
+      },
+    }));
+    andConditions.push(...filterConditions);
+  }
+
+  const whereConditions: Prisma.PaymentWhereInput =
+    andConditions.length > 0 ? { AND: andConditions } : {};
+
+  const result = await prisma.payment.findMany({
+    where: whereConditions,
+    skip,
+    take: limit,
+    orderBy:
+      options.sortBy && options.sortOrder
+        ? { [options.sortBy]: options.sortOrder }
+        : { createdAt: "desc" },
+    include: {
+      appointment: {
+        include: {
+          doctor: true,
+        },
+      },
+    },
+  });
+
+  const total = await prisma.payment.count({
+    where: whereConditions,
+  });
+
+  return {
+    meta: {
+      total,
+      page,
+      limit,
+    },
+    data: result,
+  };
+};
+
 export const PaymentService = {
   initPayment,
   validatePayment,
+  getPatientPaymentHistory,
 };

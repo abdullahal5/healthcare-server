@@ -80,7 +80,6 @@ const updatePrescriptionById = async (
   return updatedPrescription;
 };
 
-
 const patientPrescription = async (user: JwtPayload, options: IPaginations) => {
   const { limit, page, skip } = calculatePagination(options);
   const result = await prisma.prescription.findMany({

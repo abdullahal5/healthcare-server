@@ -8,6 +8,12 @@ import { PrescriptionController } from "./priscription.controller";
 const router = express.Router();
 
 router.get(
+  "/my-prescription",
+  auth(UserRole.PATIENT),
+  PrescriptionController.patientPrescription
+);
+
+router.get(
   "/",
   auth(UserRole.SUPER_ADMIN, UserRole.ADMIN),
   PrescriptionController.getAllFromDB
@@ -25,11 +31,6 @@ router.patch(
   PrescriptionController.updatePrescription
 );
 
-router.get(
-  "/my-prescription",
-  auth(UserRole.PATIENT),
-  PrescriptionController.patientPrescription
-);
 
 router.post(
   "/",
