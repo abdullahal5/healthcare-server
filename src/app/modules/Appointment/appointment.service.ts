@@ -103,6 +103,7 @@ const getMyAppointment = async (
 
   const andConditions: Prisma.AppointmentWhereInput[] = [];
 
+  // Restrict based on user role
   if (user?.role === UserRole.PATIENT) {
     andConditions.push({
       patient: {
@@ -117,6 +118,7 @@ const getMyAppointment = async (
     });
   }
 
+  // Additional filters (e.g., status, etc.)
   if (Object.keys(filterData).length > 0) {
     const filterConditions = Object.keys(filterData).map((key) => ({
       [key]: {
@@ -139,10 +141,23 @@ const getMyAppointment = async (
         : { createdAt: "desc" },
     include:
       user?.role === UserRole.PATIENT
-        ? { doctor: true, schedule: true }
+        ? {
+            doctor: true,
+            schedule: true,
+          }
         : {
             patient: {
-              include: { medicalReport: true, patientHealthData: true },
+              include: {
+                medicalReport: true,
+                patientHealthData: true,
+              },
+            },
+            prescription: {
+              where: {
+                doctor: {
+                  email: user.email,
+                },
+              },
             },
             schedule: true,
           },
@@ -209,6 +224,7 @@ const getAllFromDB = async (filters: any, options: IPaginations) => {
     include: {
       doctor: true,
       patient: true,
+      prescription: true,
     },
   });
   const total = await prisma.appointment.count({

@@ -14,6 +14,18 @@ router.get(
 );
 
 router.get(
+  "/:appointmentId",
+  auth(UserRole.DOCTOR, UserRole.PATIENT, UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  PrescriptionController.getByAppointment
+);
+
+router.patch(
+  "/:id",
+  auth(UserRole.DOCTOR, UserRole.SUPER_ADMIN, UserRole.ADMIN),
+  PrescriptionController.updatePrescription
+);
+
+router.get(
   "/my-prescription",
   auth(UserRole.PATIENT),
   PrescriptionController.patientPrescription

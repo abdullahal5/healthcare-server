@@ -46,6 +46,41 @@ const insertIntoDB = async (
   return result;
 };
 
+const getPrescriptionByAppointmentId = async (appointmentId: string) => {
+  const prescription = await prisma.prescription.findFirst({
+    where: {
+      appointmentId,
+    },
+  });
+
+  if (!prescription) {
+    throw new AppError(httpStatus.NOT_FOUND, "Prescription not found");
+  }
+
+  return prescription;
+};
+
+const updatePrescriptionById = async (
+  id: string,
+  data: Partial<Prisma.PrescriptionUpdateInput>
+) => {
+  const existingPrescription = await prisma.prescription.findFirst({
+    where: { id },
+  });
+
+  if (!existingPrescription) {
+    throw new AppError(httpStatus.NOT_FOUND, "Prescription not found");
+  }
+
+  const updatedPrescription = await prisma.prescription.update({
+    where: { id },
+    data,
+  });
+
+  return updatedPrescription;
+};
+
+
 const patientPrescription = async (user: JwtPayload, options: IPaginations) => {
   const { limit, page, skip } = calculatePagination(options);
   const result = await prisma.prescription.findMany({
@@ -141,6 +176,8 @@ const getAllFromDB = async (filters: any, options: IPaginations) => {
 
 export const PrescriptionService = {
   insertIntoDB,
+  getPrescriptionByAppointmentId,
+  updatePrescriptionById,
   patientPrescription,
   getAllFromDB,
 };
