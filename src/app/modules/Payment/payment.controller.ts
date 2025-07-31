@@ -50,8 +50,20 @@ const paymentHistory = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getSinglePayment = catchAsync(async (req: Request, res: Response) => {
+  const result = await PaymentService.getSinglePaymentByID(req.params.id);
+
+  SendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Single Payment data fetched",
+    data: result,
+  });
+});
+
 export const PaymentController = {
   initPayment,
   validatePayment,
   paymentHistory,
+  getSinglePayment,
 };

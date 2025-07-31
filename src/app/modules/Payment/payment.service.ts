@@ -155,8 +155,28 @@ const getPatientPaymentHistory = async (
   };
 };
 
+const getSinglePaymentByID = async (id: string) => {
+  const payment = await prisma.payment.findUnique({
+    where: { id },
+    include: {
+      appointment: {
+        include: {
+          doctor: true,
+        },
+      },
+    },
+  });
+
+  if (!payment) {
+    throw new Error("Payment not found");
+  }
+
+  return payment;
+}
+
 export const PaymentService = {
   initPayment,
   validatePayment,
   getPatientPaymentHistory,
+  getSinglePaymentByID,
 };

@@ -15,4 +15,10 @@ router.get(
   PaymentController.paymentHistory
 );
 
+router.get(
+  "/:id",
+  auth(UserRole.PATIENT, UserRole.DOCTOR, UserRole.SUPER_ADMIN, UserRole.ADMIN),
+  PaymentController.getSinglePayment
+);
+
 export const PaymentRoutes = router;
