@@ -7,6 +7,8 @@ import { uploadToCloudinary } from "../../../helper/fileUploader";
 import { IPaginations } from "../../interfaces/pagination";
 import { calculatePagination } from "../../../helper/paginationHelper";
 import { userSearchAbleFields } from "./user.constant";
+import AppError from "../../../shared/appError";
+import status from "http-status";
 
 const createAdminIntoDB = async (req: Request) => {
   const data = req.body;
@@ -190,8 +192,69 @@ const getMyProfile = async (
       doctor: true;
       patient: true;
     };
-  }>
+  }>,
+  query?: { role?: string; id?: string }
 ) => {
+  // If id are provided, fetch by those first
+  if (query?.id) {
+    const id = query.id;
+
+    let profile;
+    let role: "ADMIN" | "DOCTOR" | "PATIENT" | null = null;
+
+    try {
+      // Try admin
+      profile = await prisma.admin.findUnique({ where: { id } });
+      if (profile) role = "ADMIN";
+    } catch {}
+
+    if (!profile) {
+      try {
+        profile = await prisma.doctor.findUnique({ where: { id } });
+        if (profile) role = "DOCTOR";
+      } catch {}
+    }
+
+    if (!profile) {
+      try {
+        profile = await prisma.patient.findUnique({
+          where: { id },
+          include: {
+            patientHealthData: true,
+            medicalReport: true,
+          },
+        });
+        if (profile) role = "PATIENT";
+      } catch {}
+    }
+
+    if (!profile || !role) {
+      throw new AppError(status.NOT_FOUND, "User not found in any role table");
+    }
+
+    // Now fetch user info
+    const userInfo = await prisma.user.findUnique({
+      where: {
+        email: profile.email,
+      },
+      select: {
+        id: true,
+        role: true,
+        status: true,
+      },
+    });
+
+    if (!userInfo) {
+      throw new AppError(status.NOT_FOUND, "User info not found in user table");
+    }
+
+    return {
+      ...profile,
+      ...userInfo,
+    };
+  }
+
+  // Otherwise, fetch profile for current logged-in user by email
   const userInfo = await prisma.user.findUniqueOrThrow({
     where: {
       email: user?.email,
@@ -228,11 +291,71 @@ const getMyProfile = async (
       where: {
         email: userInfo.email,
       },
+      include: {
+        patientHealthData: true,
+        medicalReport: true,
+      },
     });
   }
 
   return { ...userInfo, ...profileInfo };
 };
+
+// const getMyProfile = async (
+//   user: Prisma.UserGetPayload<{
+//     include: {
+//       admin: true;
+//       doctor: true;
+//       patient: true;
+//     };
+//   }>,
+//   query: Record<string, unknown>
+// ) => {
+//   const userInfo = await prisma.user.findUniqueOrThrow({
+//     where: {
+//       email: user?.email,
+//       status: UserStatus.ACTIVE,
+//     },
+//     select: {
+//       id: true,
+//       email: true,
+//       needPasswordChange: true,
+//       role: true,
+//       status: true,
+//     },
+//   });
+
+//   let profileInfo;
+
+//   if (
+//     userInfo.role === UserRole.ADMIN ||
+//     userInfo.role === UserRole.SUPER_ADMIN
+//   ) {
+//     profileInfo = await prisma.admin.findUniqueOrThrow({
+//       where: {
+//         email: userInfo.email,
+//       },
+//     });
+//   } else if (userInfo.role === UserRole.DOCTOR) {
+//     profileInfo = await prisma.doctor.findUniqueOrThrow({
+//       where: {
+//         email: userInfo.email,
+//       },
+//     });
+//   } else if (userInfo.role === UserRole.PATIENT) {
+//     profileInfo = await prisma.patient.findUniqueOrThrow({
+//       where: {
+//         email: userInfo.email,
+//       },
+//       include: {
+//         patientHealthData: true,
+//         medicalReport: true,
+//       },
+//     });
+//   }
+
+//   return { ...userInfo, ...profileInfo };
+// };
 
 const updateMyProfie = async (
   user: Prisma.UserGetPayload<{
@@ -278,11 +401,59 @@ const updateMyProfie = async (
       data: req.body,
     });
   } else if (userInfo.role === UserRole.PATIENT) {
+    // Prepare the health data
+    const healthData = {
+      gender: req.body.patientHealthData.gender,
+      dateOfBirth: req.body.patientHealthData.dateOfBirth,
+      bloodGroup: req.body.patientHealthData.bloodGroup,
+      height: req.body.patientHealthData.height,
+      weight: req.body.patientHealthData.weight,
+      hasAllergies: req.body.patientHealthData.hasAllergies,
+      hasDiabetes: req.body.patientHealthData.hasDiabetes,
+      dietaryPreferences: req.body.patientHealthData.dietaryPreferences,
+      mentalHealthHistory: req.body.patientHealthData.mentalHealthHistory,
+      immunizationStatus: req.body.patientHealthData.immunizationStatus,
+      smokingStatus: req.body.patientHealthData.smokingStatus,
+      pregnancyStatus: req.body.patientHealthData.pregnancyStatus,
+      hasPastSurgeries: req.body.patientHealthData.hasPastSurgeries,
+      recentAnxiety: req.body.patientHealthData.recentAnxiety,
+      recentDepression: req.body.patientHealthData.recentDepression,
+      maritalStatus: req.body.patientHealthData.maritalStatus,
+    };
+
+    // Validate required fields
+    if (
+      !healthData.gender ||
+      !healthData.dateOfBirth ||
+      !healthData.bloodGroup ||
+      !healthData.height ||
+      !healthData.weight
+    ) {
+      throw new AppError(
+        status.BAD_REQUEST,
+        "Missing required health data fields"
+      );
+    }
+
     profileInfo = await prisma.patient.update({
       where: {
         email: userInfo.email,
       },
-      data: req.body,
+      data: {
+        name: req.body.name,
+        profilePhoto: req.body.profilePhoto,
+        contactNumber: req.body.contactNumber,
+        address: req.body.address,
+        patientHealthData: {
+          upsert: {
+            create: healthData,
+            update: healthData,
+          },
+        },
+      },
+      include: {
+        patientHealthData: true,
+      },
     });
   }
 

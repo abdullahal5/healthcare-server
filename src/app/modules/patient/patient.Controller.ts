@@ -5,6 +5,7 @@ import { SendResponse } from "../../../shared/sendResponse";
 import { pick } from "../../../shared/pick";
 import { patientFilterableFields } from "./patient.constant";
 import { PatientService } from "./patient.service";
+import { IFile } from "../../interfaces/file";
 
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, patientFilterableFields);
@@ -35,7 +36,7 @@ const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
 
 const updateIntoDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const result = await PatientService.updateIntoDB(id, req.body);
+  const result = await PatientService.updateIntoDB(id, req.body, req.files as IFile[]);
 
   SendResponse(res, {
     statusCode: httpStatus.OK,

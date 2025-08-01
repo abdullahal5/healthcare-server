@@ -4,6 +4,10 @@ import { IPaginations } from "../../interfaces/pagination";
 import { calculatePagination } from "../../../helper/paginationHelper";
 import { patientSearchableFields } from "./patient.constant";
 import { prisma } from "../../../shared/prisma";
+import { IFile } from "../../interfaces/file";
+import { uploadToCloudinary } from "../../../helper/fileUploader";
+import AppError from "../../../shared/appError";
+import status from "http-status";
 
 const getAllFromDB = async (
   filters: IPatientFilterRequest,
@@ -87,67 +91,57 @@ const getByIdFromDB = async (id: string): Promise<Patient | null> => {
   return result;
 };
 
-const updateIntoDB = async (id: string, payload: any) => {
-  const { patientHealthData, medicalReport, ...patientData } = payload;
+const updateIntoDB = async (id: string, data: any, files: IFile[]) => {
+  return await prisma.$transaction(async (transactionClient) => {
+    const patientInfo = await transactionClient.patient.findUnique({
+      where: { id },
+    });
 
-  const patientInfo = await prisma.patient.findUniqueOrThrow({
-    where: {
-      id,
-      isDeleted: false,
-    },
-    include: {
-      patientHealthData: true,
-      medicalReport: true,
-    },
-  });
+    if (!patientInfo) throw new Error("Patient not found");
 
-  const result = await prisma.$transaction(async (transactionClient) => {
-    // update patient data
+    // Extract patientHealthData and reportName from data, rest is patient fields
+    const { patientHealthData, reportName, ...patientFields } = data;
+
+    // Remove patientId if exists by accident
+    delete (patientFields as any).patientId;
+
+    // Update Patient fields and nested patientHealthData if any
     const updatedPatient = await transactionClient.patient.update({
-      where: {
-        id,
+      where: { id },
+      data: {
+        ...patientFields,
+        patientHealthData: patientHealthData
+          ? {
+              upsert: {
+                update: patientHealthData,
+                create: { ...patientHealthData, patientId: id },
+              },
+            }
+          : undefined,
       },
-      data: patientData,
       include: {
         patientHealthData: true,
         medicalReport: true,
       },
     });
 
-    if (patientHealthData) {
-      // create or update patient health data
-      await transactionClient.patientHealthData.upsert({
-        where: {
-          patientId: patientInfo.id,
-        },
-        update: patientHealthData,
-        create: {
-          ...patientHealthData,
-          patientId: patientInfo.id,
-        },
-      });
+    // Handle files as medical reports
+    if (files?.length > 0) {
+      for (const file of files) {
+        const uploadFile = await uploadToCloudinary(file);
+
+        await transactionClient.medicalReport.create({
+          data: {
+            reportName: reportName || "Unnamed report",
+            reportLink: uploadFile?.secure_url as string,
+            patientId: id,
+          },
+        });
+      }
     }
 
-    if (medicalReport) {
-      // create medical report
-      await transactionClient.medicalReport.create({
-        data: {
-          ...medicalReport,
-          patientId: patientInfo.id,
-        },
-      });
-    }
+    return updatedPatient;
   });
-
-  const updatedPatientInfo = await prisma.patient.findUniqueOrThrow({
-    where: { id },
-    include: {
-      patientHealthData: true,
-      medicalReport: true,
-    },
-  });
-
-  return updatedPatientInfo;
 };
 
 const deleteFromDB = async (id: string): Promise<Patient | null> => {

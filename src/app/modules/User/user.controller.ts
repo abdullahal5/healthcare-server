@@ -76,7 +76,7 @@ const changeProfileStatus = catchAsync(async (req: Request, res: Response) => {
 const getMyProfile = catchAsync(async (req: Request, res: Response) => {
   const user = req.user;
 
-  const result = await UserService.getMyProfile(user);
+  const result = await UserService.getMyProfile(user, req.query);
 
   SendResponse(res, {
     statusCode: httpStatus.OK,

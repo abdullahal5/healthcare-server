@@ -85,7 +85,8 @@ const getPatientPaymentHistory = async (
   options: IPaginations,
   user: JwtPayload
 ) => {
-  const { limit = 10, page = 1 } = options;
+  const limit = Number(options.limit ?? 10);
+  const page = Number(options.page ?? 1);
   const skip = (page - 1) * limit;
   const { searchTerm, specialties, ...filterData } = filters;
 
