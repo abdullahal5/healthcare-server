@@ -39,7 +39,6 @@ const initPayment = async (appointmentId: string) => {
 };
 
 const validatePayment = async (payload: any) => {
-  console.log("HELOO");
   if (!payload || !payload.status || payload.status !== "VALID") {
     throw new AppError(status.BAD_REQUEST, "Invalid payment");
   }
@@ -49,10 +48,6 @@ const validatePayment = async (payload: any) => {
   if (response?.status !== "VALID") {
     throw new AppError(status.BAD_REQUEST, "Payment failed!");
   }
-
-  console.log(response);
-
-  // const response = payload;
 
   await prisma.$transaction(async (tx) => {
     const updatedPaymentData = await tx.payment.update({

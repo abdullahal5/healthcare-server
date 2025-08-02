@@ -144,6 +144,7 @@ const getMyAppointment = async (
         ? {
             doctor: true,
             schedule: true,
+            review: true,
           }
         : {
             patient: {
@@ -159,6 +160,7 @@ const getMyAppointment = async (
                 },
               },
             },
+            review: true,
             schedule: true,
           },
   });
@@ -328,7 +330,6 @@ const cancelUnpaidAppointments = async () => {
     )
   );
 };
-
 
 export const AppointmentService = {
   createAppointment,

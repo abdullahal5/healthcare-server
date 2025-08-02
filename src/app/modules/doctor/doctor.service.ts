@@ -102,6 +102,11 @@ const getByIdFromDB = async (id: string) => {
           specialities: true,
         },
       },
+      review: {
+        include: {
+          patient: true,
+        },
+      },
     },
   });
   return result;
