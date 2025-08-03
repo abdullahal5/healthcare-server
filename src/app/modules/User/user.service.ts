@@ -210,7 +210,16 @@ const getMyProfile = async (
 
     if (!profile) {
       try {
-        profile = await prisma.doctor.findUnique({ where: { id } });
+        profile = await prisma.doctor.findUnique({
+          where: { id },
+          include: {
+            doctorSpecialties: {
+              include: {
+                specialities: true,
+              },
+            },
+          },
+        });
         if (profile) role = "DOCTOR";
       } catch {}
     }
@@ -284,6 +293,13 @@ const getMyProfile = async (
     profileInfo = await prisma.doctor.findUniqueOrThrow({
       where: {
         email: userInfo.email,
+      },
+      include: {
+        doctorSpecialties: {
+          include: {
+            specialities: true,
+          },
+        },
       },
     });
   } else if (userInfo.role === UserRole.PATIENT) {
@@ -394,11 +410,45 @@ const updateMyProfie = async (
       data: req.body,
     });
   } else if (userInfo.role === UserRole.DOCTOR) {
-    profileInfo = await prisma.doctor.update({
-      where: {
-        email: userInfo.email,
-      },
-      data: req.body,
+    const { specialties, ...doctorData } = req.body;
+    profileInfo = await prisma.$transaction(async (transactionClient) => {
+      // Update doctor base info
+      const updatedDoctor = await transactionClient.doctor.update({
+        where: { email: userInfo.email },
+        data: doctorData,
+      });
+
+      // Manage specialties if provided
+      if (specialties && specialties.length > 0) {
+        // Delete specialties marked as deleted
+        const deleteSpecialties = specialties.filter(
+          (s: { isDeleted: boolean }) => s.isDeleted
+        );
+        for (const specialty of deleteSpecialties) {
+          await transactionClient.doctorSpecialties.deleteMany({
+            where: {
+              doctorId: updatedDoctor.id,
+              specialtiesId: specialty.specialtiesId,
+            },
+          });
+        }
+
+        // Create new specialties not marked deleted
+        const createSpecialties = specialties.filter(
+          (s: { isDeleted: boolean }) => !s.isDeleted
+        );
+        for (const specialty of createSpecialties) {
+          // Avoid duplicates if needed, else will error if unique constraint violated
+          await transactionClient.doctorSpecialties.create({
+            data: {
+              doctorId: updatedDoctor.id,
+              specialtiesId: specialty.specialtiesId,
+            },
+          });
+        }
+      }
+
+      return updatedDoctor;
     });
   } else if (userInfo.role === UserRole.PATIENT) {
     // Prepare the health data

@@ -143,7 +143,6 @@ const updateIntoDB = async (req: Request) => {
       const deleteSpecialtiesIds = specialties.filter(
         (specialty) => specialty.isDeleted
       );
-      //console.log(deleteSpecialtiesIds)
       for (const specialty of deleteSpecialtiesIds) {
         await transactionClient.doctorSpecialties.deleteMany({
           where: {
