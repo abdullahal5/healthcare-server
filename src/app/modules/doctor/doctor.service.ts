@@ -73,6 +73,12 @@ const getAllFromDB = async (
           specialities: true,
         },
       },
+      user: {
+        select: {
+          id: true,
+          status: true,
+        },
+      },
     },
   });
 
@@ -105,6 +111,11 @@ const getByIdFromDB = async (id: string) => {
       review: {
         include: {
           patient: true,
+        },
+      },
+      user: {
+        select: {
+          status: true,
         },
       },
     },

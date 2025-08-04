@@ -6,8 +6,6 @@ import { patientSearchableFields } from "./patient.constant";
 import { prisma } from "../../../shared/prisma";
 import { IFile } from "../../interfaces/file";
 import { uploadToCloudinary } from "../../../helper/fileUploader";
-import AppError from "../../../shared/appError";
-import status from "http-status";
 
 const getAllFromDB = async (
   filters: IPatientFilterRequest,
@@ -60,6 +58,12 @@ const getAllFromDB = async (
     include: {
       medicalReport: true,
       patientHealthData: true,
+      user: {
+        select: {
+          id: true,
+          status: true,
+        },
+      },
     },
   });
 
@@ -86,6 +90,12 @@ const getByIdFromDB = async (id: string): Promise<Patient | null> => {
     include: {
       medicalReport: true,
       patientHealthData: true,
+      user: {
+        select: {
+          id: true,
+          status: true,
+        },
+      },
     },
   });
   return result;

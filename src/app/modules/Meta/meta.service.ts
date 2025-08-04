@@ -64,6 +64,7 @@ const getAdminMetaData = async () => {
   const patientCount = await prisma.patient.count();
   const doctorCount = await prisma.doctor.count();
   const paymentCount = await prisma.payment.count();
+  const adminCount = await prisma.admin.count();
 
   const totalRevenue = await prisma.payment.aggregate({
     _sum: {
@@ -86,6 +87,7 @@ const getAdminMetaData = async () => {
     patientCount,
     doctorCount,
     paymentCount,
+    adminCount,
     totalRevenue: formattedTotalRevenue.amount,
     barChartData,
     pieChartData,
