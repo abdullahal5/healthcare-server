@@ -5,9 +5,11 @@ import { UserRole } from "@prisma/client";
 
 const router = express.Router();
 
-router.post("/ipn", PaymentController.validatePayment);
-
-router.post("/init-payment/:appointmentId", PaymentController.initPayment);
+router.post(
+  "/create-checkout-session/:appointmentId",
+  auth(UserRole.PATIENT),
+  PaymentController.initPayment
+);
 
 router.get(
   "/my-history",

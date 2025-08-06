@@ -1,14 +1,20 @@
 import status from "http-status";
 import AppError from "../../../shared/appError";
 import { prisma } from "../../../shared/prisma";
-import { SSLService } from "../SSL/ssl.service";
-import { PaymentStatus, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { JwtPayload } from "jsonwebtoken";
 import { IDoctorFilterRequest } from "../doctor/doctor.interface";
 import { IPaginations } from "../../interfaces/pagination";
 import { paymentSearchableFields } from "./payment.constant";
+import Stripe from "stripe";
+import config from "../../../config";
 
-const initPayment = async (appointmentId: string) => {
+const stripe = new Stripe(config.stripe.stripe_secret_key!, {
+  apiVersion: "2025-07-30.basil",
+  typescript: true,
+});
+
+const initStripePayment = async (appointmentId: string) => {
   const paymentData = await prisma.payment.findFirstOrThrow({
     where: {
       appointmentId,
@@ -17,61 +23,68 @@ const initPayment = async (appointmentId: string) => {
       appointment: {
         include: {
           patient: true,
+          doctor: true,
+          schedule: true,
         },
       },
     },
   });
 
-  const initPaymentData = {
-    amount: paymentData.amount,
-    transactionId: paymentData.transactionId,
-    name: paymentData.appointment.patient.name,
-    email: paymentData.appointment.patient.email,
-    address: paymentData.appointment.patient.address,
-    phoneNumber: paymentData.appointment.patient.contactNumber,
-  };
+  const appointment = paymentData.appointment;
 
-  const result = await SSLService.initPayment(initPaymentData);
-
-  return {
-    paymentUrl: result.GatewayPageURL,
-  };
-};
-
-const validatePayment = async (payload: any) => {
-  if (!payload || !payload.status || payload.status !== "VALID") {
-    throw new AppError(status.BAD_REQUEST, "Invalid payment");
+  if (!appointment || !appointment.patient) {
+    throw new AppError(status.NOT_FOUND, "Invalid appointment or patient");
   }
 
-  const response = await SSLService.validatePayment(payload);
-
-  if (response?.status !== "VALID") {
-    throw new AppError(status.BAD_REQUEST, "Payment failed!");
-  }
-
-  await prisma.$transaction(async (tx) => {
-    const updatedPaymentData = await tx.payment.update({
-      where: {
-        transactionId: response.tran_id,
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    mode: "payment",
+    line_items: [
+      {
+        price_data: {
+          currency: "bdt",
+          unit_amount: paymentData.amount * 100,
+          product_data: {
+            name: `Appointment with Dr. ${appointment.doctor.name}`,
+            description:
+              `🆔 Transaction ID: ${paymentData.transactionId} | ` +
+              `👤 Patient: ${appointment.patient.name} | ` +
+              `📅 Date: ${
+                appointment.schedule.startDateTime.toISOString().split("T")[0]
+              } | ` +
+              `⏰ Time: ${new Date(
+                appointment.schedule.startDateTime
+              ).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })} - ${new Date(
+                appointment.schedule.endDateTime
+              ).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}`,
+            images: [
+              appointment.doctor.profilePhoto ||
+                "https://img.freepik.com/free-icon/user_318-563642.jpg",
+            ],
+          },
+        },
+        quantity: 1,
       },
-      data: {
-        status: PaymentStatus.PAID,
-        paymentGatewayData: response,
-      },
-    });
-
-    await tx.appointment.update({
-      where: {
-        id: updatedPaymentData.appointmentId,
-      },
-      data: {
-        paymentStatus: PaymentStatus.PAID,
-      },
-    });
+    ],
+    metadata: {
+      appointmentId,
+      transactionId: paymentData.transactionId,
+      patientName: appointment.patient.name,
+      doctorName: appointment.doctor.name,
+    },
+    customer_email: appointment.patient.email || undefined,
+    success_url: config.stripe.success_url,
+    cancel_url: config.stripe.fail_url,
   });
 
   return {
-    message: "Payment success!",
+    Url: session.url,
   };
 };
 
@@ -168,11 +181,10 @@ const getSinglePaymentByID = async (id: string) => {
   }
 
   return payment;
-}
+};
 
 export const PaymentService = {
-  initPayment,
-  validatePayment,
+  initStripePayment,
   getPatientPaymentHistory,
   getSinglePaymentByID,
 };

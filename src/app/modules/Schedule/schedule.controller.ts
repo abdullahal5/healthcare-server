@@ -21,7 +21,12 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
   const options = pick(req.query, ["limit", "page", "sortBy", "sortOrder"]);
 
   const user = req.user;
-  const result = await ScheduleService.getAllFromDB(filters, options, user);
+  const result = await ScheduleService.getAllFromDB(
+    filters,
+    options,
+    user,
+    req.query.isDoctorScheduled as unknown as string
+  );
 
   SendResponse(res, {
     statusCode: httpStatus.OK,

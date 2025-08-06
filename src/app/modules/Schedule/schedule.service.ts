@@ -83,30 +83,41 @@ const inserIntoDB = async (payload: ISchedule): Promise<Schedule[]> => {
 const getAllFromDB = async (
   filters: IFilterRequest,
   options: IPaginations,
-  user: JwtPayload
+  user: JwtPayload,
+  isDoctorScheduled: string
 ) => {
   const { limit, page, skip } = calculatePagination(options);
   const { startDate, endDate } = filters;
 
-  const andConditions = [];
+  let isScheduled: boolean | undefined = undefined;
 
+  if (isDoctorScheduled === "true") {
+    isScheduled = true;
+  } else if (isDoctorScheduled === "false") {
+    isScheduled = false;
+  } else if (isDoctorScheduled !== undefined) {
+    throw new Error(
+      'Invalid value for isDoctorScheduled. Must be "true" or "false".'
+    );
+  }
+
+  const andConditions: Prisma.ScheduleWhereInput[] = [];
+
+  // Filter by date range if provided
   if (startDate && endDate) {
     andConditions.push({
-      AND: [
-        {
-          startDateTime: {
-            gte: startDate,
-          },
-        },
-        {
-          endDateTime: {
-            lte: endDate,
-          },
-        },
-      ],
+      startDateTime: {
+        gte: startDate,
+      },
+    });
+    andConditions.push({
+      endDateTime: {
+        lte: endDate,
+      },
     });
   }
 
+  // Fetch doctor-specific schedules
   const doctorSchedules = await prisma.doctorSchedules.findMany({
     where: {
       doctor: {
@@ -115,23 +126,39 @@ const getAllFromDB = async (
     },
   });
 
-  const doctorScheduleIds = doctorSchedules.map(
-    (doctorSchedule) => doctorSchedule.scheduleId
-  );
+  const doctorScheduleIds = doctorSchedules.map((ds) => ds.scheduleId);
 
-  const whereConditions: Prisma.ScheduleWhereInput =
-    andConditions.length > 0
-      ? {
-          AND: [
-            ...andConditions,
-            {
-              id: {
-                notIn: doctorScheduleIds,
-              },
-            },
-          ],
-        }
-      : {};
+  if (typeof isScheduled === "boolean") {
+    if (isScheduled === true) {
+      // Return schedules that are assigned to this doctor
+      andConditions.push({
+        id: {
+          in: doctorScheduleIds.length > 0 ? doctorScheduleIds : [""], // use [''] to prevent matching all
+        },
+      });
+    } else {
+      // Return schedules that are NOT assigned to ANY doctor
+      const allDoctorAssignedSchedules = await prisma.doctorSchedules.findMany({
+        select: {
+          scheduleId: true,
+        },
+      });
+
+      const assignedScheduleIds = allDoctorAssignedSchedules.map(
+        (ds) => ds.scheduleId
+      );
+
+      andConditions.push({
+        id: {
+          notIn: assignedScheduleIds.length > 0 ? assignedScheduleIds : [""],
+        },
+      });
+    }
+  }
+
+  const whereConditions: Prisma.ScheduleWhereInput = andConditions.length
+    ? { AND: andConditions }
+    : {};
 
   const result = await prisma.schedule.findMany({
     where: whereConditions,
@@ -139,21 +166,12 @@ const getAllFromDB = async (
     take: limit,
     orderBy:
       options.sortBy && options.sortOrder
-        ? {
-            [options.sortBy]: options.sortOrder,
-          }
-        : {
-            createdAt: "desc",
-          },
+        ? { [options.sortBy]: options.sortOrder }
+        : { createdAt: "desc" },
   });
 
   const total = await prisma.schedule.count({
-    where: {
-      ...whereConditions,
-      id: {
-        notIn: doctorScheduleIds,
-      },
-    },
+    where: whereConditions,
   });
 
   return {

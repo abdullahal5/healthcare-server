@@ -14,8 +14,15 @@ import {
 } from "./utils/middleware-configure";
 import { AppointmentService } from "./app/modules/Appointment/appointment.service";
 import cron from "node-cron";
+import { stripeWebhookHandler } from "./app/webhook/stripeWebhook";
 
 const app: Application = express();
+
+app.post(
+  "/payment/webhook",
+  express.raw({ type: "application/json" }),
+  stripeWebhookHandler
+);
 
 // Security Middleware
 app.use(helmet());

@@ -22,19 +22,18 @@ export default {
     smtp_host: process.env.SMTP_HOST,
     smtp_port: process.env.SMTP_PORT,
   },
-  ssl: {
-    store_id: process.env.SSLCOMMERZ_STORE_ID,
-    store_pass: process.env.SSLCOMMERZ_STORE_PASSWORD,
-    success_url: process.env.SUCCESS_URL,
-    cancel_url: process.env.CANCEL_URL,
-    fail_url: process.env.FAIL_URL,
-    ssl_paymentApi: process.env.SSLCOMMERZ_PAYMENT_API,
-    ssl_validationApi: process.env.SSLCOMMERZ_VALIDATION_API,
-  },
   cloudinary: {
     cloud_name: process.env.CLOUDINARY_NAME_KEY,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET_KEY,
     cloudinary_url: process.env.CLOUDINARY_URL,
+  },
+  stripe: {
+    stripe_secret_key: process.env.STRIPE_SECRET_KEY,
+    stripe_publishable_key: process.env.STRIPE_PUBLISHABLE_KEY,
+    stripe_webhook_key: process.env.STRIPE_WEBHOOK_KEY,
+    success_url: process.env.SUCCESS_URL,
+    cancel_url: process.env.CANCEL_URL,
+    fail_url: process.env.FAIL_URL,
   },
 };
