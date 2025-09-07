@@ -1,47 +1,65 @@
-<h1>📦 PH HealthCare Server</h1>
+# 📦 PH HealthCare Server
 
-<p>
-  Welcome to the <strong>backend repository</strong> for <strong>PH HealthCare</strong>, a tutorial project developed as part of the <strong>Level 2 Web Development Course</strong> offered by <strong>Programming Hero</strong>.
-</p>
+Welcome to the **backend repository** for **PH HealthCare**, a full-featured healthcare management system connecting **Admins, Doctors, and Patients**.
 
-<p>
-  This repository contains the backend codebase responsible for:
-</p>
+The backend handles:
 
-<ul>
-  <li>Handling server-side logic</li>
-  <li>Managing the database</li>
-  <li>Enabling communication between different system components</li>
-</ul>
+- Server-side logic and business rules  
+- Database management with PostgreSQL and Prisma  
+- Role-based access control (RBAC) for Admin, Doctor, and Patient  
+- Appointment scheduling, video calls, and prescription management  
+- Payment processing and reporting  
 
-<hr>
+---
 
-<h2>🚀 Installation and Setup</h2>
+## 📸 Database Design
 
-<ol>
-  <li><strong>Clone the repository</strong>
-    <pre><code>git clone https://github.com/Apollo-Level2-Web-Dev/b3-ph-health-care.git</code></pre>
-  </li>
+![App Screenshot](public/image.png)
 
-  <li><strong>Navigate to the project directory</strong>
-    <pre><code>cd healthcare-server</code></pre>
-  </li>
+---
 
-  <li><strong>Install the dependencies</strong>
-    <pre><code>npm install</code></pre>
-  </li>
+## 🚀 Features
 
-  <li><strong>Set up environment variables</strong>
-    <ul>
-      <li>Create a <code>.env</code> file in the root directory.</li>
-      <li>Copy and fill in the following fields:</li>
-    </ul>
-  </li>
-</ol>
+- **Role-Based Access Control (RBAC)** – Separate permissions for Admins, Doctors, and Patients.  
+- **Doctor Scheduling & Appointments** – Manage availability, book appointments, and track status.  
+- **Video Consultations** – Secure online video call integration.  
+- **Digital Prescriptions** – Doctors can issue and manage prescriptions online.  
+- **Payment Handling** – Track and update payment status for appointments.  
+- **Patient Health Data & Reports** – Manage medical history, health records, and reports.  
+- **Reviews & Ratings** – Patients can rate doctors after appointments.  
 
-<h3>🔑 Environment Variables</h3>
+---
 
-<pre><code>NODE_ENV="development"
+## 🛠 Tech Stack
+
+- **Backend:** Node.js + Express.js  
+- **Database:** PostgreSQL with Prisma ORM  
+- **Authentication & Authorization:** JWT, Role-based Access Control  
+- **Validation:** Zod  
+- **Media Storage:** Cloudinary  
+
+---
+
+## 📦 Installation & Setup
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/abdullahal5/healthcare-server.git
+cd healthcare-server
+npm install
+# or
+yarn install
+```
+
+---
+
+## 🔑 Environment Variables
+
+Create a `.env` file in the root of the project and add the following variables (use your own secure values instead of these demo placeholders):
+
+```env
+NODE_ENV="development"
 PORT=3000
 DATABASE_URL=
 JWT_SECRET="ksfljkdsjflksdjflk"
@@ -53,16 +71,4 @@ RESET_PASS_TOKEN_EXPIRES_IN="5m"
 RESET_PASS_LINK="FRONT-END RESET PASS LINK"
 EMAIL="YOUR EMAIL"
 APP_PASS="APP PASS"
-</code></pre>
-
-<ol start="5">
-  <li><strong>Run database migrations</strong>
-    <pre><code>npx prisma migrate dev</code></pre>
-  </li>
-
-  <li><strong>Start the development server</strong>
-    <pre><code>npm run dev</code></pre>
-  </li>
-</ol>
-
-<hr>
+```
